@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/ubuntu/cokkirimarketserver
+cd /home/ubuntu/cokkirimarketserver/server
 npm install
 npm install pm2@latest -g
 sudo apt-get update
