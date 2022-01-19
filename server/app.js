@@ -8,7 +8,6 @@ const https = require('https');
 const indexRouter = require('./routes/');
 
 const app = express()
-// 위와 같이 express와 app을 변수로 사용한다.
 
 let corsOptions = {
     origin: '*',
