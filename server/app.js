@@ -39,7 +39,7 @@ try {
       app
     )
     .listen(PORT);
-    console.log(`${process.env.NODE_ENV} 환경에서 서버가 ${PORT} 번 포트에서 실행되었습니다.`)
+    console.log(`${process.env.NODE_ENV} 환경에서 서버가 ${PORT} 번 포트에서 실행되었습니다..`)
 } catch (error) {
   console.log(error)
 }
