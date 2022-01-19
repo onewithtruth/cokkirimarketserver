@@ -33,8 +33,8 @@ try {
   https
     .createServer(
       {
-        key: fs.readFileSync(__dirname + `/` + process.env.SSL_KEY, 'utf-8'),
-        cert: fs.readFileSync(__dirname + `/` + process.env.SSL_CERT, 'utf-8'),
+        key: fs.readFileSync(__dirname + '/cokkirimarket.key.pem', 'utf8'),
+        cert: fs.readFileSync(__dirname + '/cokkirimarket.crt.pem', 'utf8'),
       },
       app
     )
