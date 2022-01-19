@@ -28,21 +28,6 @@ app.set('etag', false)
 
 let server;
 
-// try {
-//   https
-//     .createServer(
-//       {
-//         key: fs.readFileSync(__dirname + '/cokkirimarket.key.pem', 'utf8'),
-//         cert: fs.readFileSync(__dirname + '/cokkirimarket.crt.pem', 'utf8'),
-//       },
-//       app
-//     )
-//     .listen(PORT);
-//     console.log(`서버가 ${PORT} 번 포트에서 실행되었습니다..`)
-// } catch (error) {
-//   console.log(error)
-// }
-
 if (fs.existsSync('./key.pem') && fs.existsSync('./cert.pem')) {
   const privateKey = fs.readFileSync(__dirname + '/key.pem', 'utf8');
   const certificate = fs.readFileSync(__dirname + '/cert.pem', 'utf8');
