@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require('express')
 const cors = require('cors');
-const PORT = 80;
+const PORT = 8000;
 const fs = require('fs');
 const https = require('https');
 const indexRouter = require('./routes/');
@@ -39,7 +39,7 @@ try {
       app
     )
     .listen(PORT);
-    console.log(`${process.env.NODE_ENV} 환경에서 서버가 ${PORT} 번 포트에서 실행되었습니다..`)
+    console.log(`서버가 ${PORT} 번 포트에서 실행되었습니다..`)
 } catch (error) {
   console.log(error)
 }
