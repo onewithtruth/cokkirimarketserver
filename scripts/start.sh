@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /home/ubuntu/im-sprint-practice-deploy/server
+cd /home/ubuntu/cokkirimarketserver
 authbind --deep pm2 start app.js
