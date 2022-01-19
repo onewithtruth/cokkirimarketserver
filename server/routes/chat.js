@@ -10,13 +10,6 @@ const controller = require('../controllers/chat')
  *     tags: [Chat]
  *     produces:
  *     - "application/json"
- *     parameters:
- *     - in: header
- *       required: true
- *       name: Authorization
- *       type: string
- *       description: AccessToken
- *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  *     responses:
  *       "200":
  *         description: "채팅방 목록을 불러오는데 성공했습니다."
@@ -58,19 +51,12 @@ const controller = require('../controllers/chat')
  *     produces:
  *     - "application/json"
  *     parameters:
- *     - in: header
- *       required: true
- *       name: Authorization
- *       type: string
- *       description: AccessToken
- *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  *     - in: path
  *       required: true
  *       name: user_uuid
  *       type: string
  *       description: 채팅 메시지를 불러올 상대방의 uuid
  *       example: 123213
- * 
  *     responses:
  *       "200":
  *         description: "채팅 메시지를 불러오는데 성공했습니다."
@@ -108,12 +94,6 @@ const controller = require('../controllers/chat')
  *     produces:
  *     - "application/json"
  *     parameters:
- *     - in: header
- *       required: true
- *       name: Authorization
- *       type: string
- *       description: AccessToken
- *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  *     - in: path
  *       required: true
  *       name: user_uuid
@@ -158,12 +138,6 @@ const controller = require('../controllers/chat')
  *     produces:
  *     - "application/json"
  *     parameters:
- *     - in: header
- *       required: true
- *       name: Authorization
- *       type: string
- *       description: AccessToken
- *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  *     - in: path
  *       required: true
  *       name: chat_id

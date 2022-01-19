@@ -28,11 +28,7 @@ module.exports = {
                 const accessToken = generateAccessToken(user.dataValues)
                 const refreshToken = generateRefreshToken(user.dataValues)
 
-                res.json({ 
-                    accessToken: accessToken,
-                    refreshToken: refreshToken,
-                    message: "로그인 성공"
-                });
+                sendAccessToken(res, accessToken)
             } else {
                 //올바르지 않은 유저 정보
                 res.status(400).json({ message: '로그인 실패' })
