@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require('express')
 const cors = require('cors');
-const PORT = 443;
+const PORT = 80;
 const fs = require('fs');
 const https = require('https');
 const indexRouter = require('./routes/');
