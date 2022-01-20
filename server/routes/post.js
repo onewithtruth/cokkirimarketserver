@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/post')
+const { authentication } = require('../controllers/authentication')
 
 /* GET links listing. */
 /**
@@ -48,7 +49,7 @@ const controller = require('../controllers/post')
  *                    type: string
  *                    example: "successful"
  *        "400":
- *          description: "유효하지 않은 요청입니다."
+ *          description: "사용자 인증 관련"
  *          content:
  *            applycation/json:
  *              schema:
@@ -56,7 +57,7 @@ const controller = require('../controllers/post')
  *                properties:
  *                  message:
  *                    type: string
- *                    example: "Invalid user"
+ *                    example: "인증 정보가 만료되었습니다. / 비정상적인 접근입니다."
  *        "500":
  *            description: "기타 오류"
  *            content:
@@ -74,10 +75,11 @@ const controller = require('../controllers/post')
  *     produces:
  *     - "application/json"
  *     parameters:
- *     - in: path
- *       name: page
+ *     - in: query
+ *       name: number
  *       type: integer
- *       description: n번째 페이지의 자료를 불러옵니다.
+ *       description: 불러올 게시물의 개수를 나타냅니다.
+ *       example: 10
  *     responses:
  *        "200":
  *          description: "게시물 불러오기 성공"
@@ -106,17 +108,17 @@ const controller = require('../controllers/post')
  *                    example: "string, 게시자가 설정한 위치 정보이다."
  *                  created_at:
  *                    type: string
- *                    example: "DATETIME, 한국 표준시(KST) 기준 생성 시간을 나타낸다."
+ *                    example: "DATETIME, 한국 표준시(KST) 기준 생성 시각을 나타낸다."
  *        "500":
- *            description: "기타 오류"
- *            content:
- *                application/json:
- *                    schema:
- *                        type: object
- *                        properties:
- *                            message:
- *                                type: string
- *                                example: "기타 오류"
+ *          description: "데이터베이스 서버 오류"
+ *          content:
+ *            applycation/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "데이터베이스 서버 오류"
  * 
  *   delete:
  *     description: 게시물을 삭제합니다.
@@ -163,6 +165,17 @@ const controller = require('../controllers/post')
  *                  created_at:
  *                    type: string
  *                    example: "DATETIME, 한국 표준시(KST) 기준 생성 시간을 나타낸다."
+ * 
+ *        "400":
+ *          description: "사용자 인증 관련"
+ *          content:
+ *            applycation/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "인증 정보가 만료되었습니다. / 비정상적인 접근입니다."
  *        "500":
  *            description: "기타 오류"
  *            content:
@@ -219,23 +232,111 @@ const controller = require('../controllers/post')
  *                  created_at:
  *                    type: string
  *                    example: "DATETIME, 한국 표준시(KST) 기준 생성 시간을 나타낸다."
+ *        "400":
+ *          description: "사용자 인증 관련"
+ *          content:
+ *            applycation/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "인증 정보가 만료되었습니다. / 비정상적인 접근입니다."
+ * 
  *        "500":
- *            description: "기타 오류"
- *            content:
- *                application/json:
- *                    schema:
- *                        type: object
- *                        properties:
- *                            message:
- *                                type: string
- *                                example: "기타 오류"
+ *          description: "데이터베이스 서버 오류"
+ *          content:
+ *            applycation/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "데이터베이스 서버 오류"
  *              
  * 
-*/
+ * /post/my:
+ *   get:
+ *     description: 내 최근 게시물을 불러옵니다.
+ *     tags: [Post]
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - in: header
+ *       required: true
+ *       name: Authorization
+ *       type: string
+ *       description: AccessToken
+ *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
+ *     - in: query
+ *       name: number
+ *       type: integer
+ *       description: 불러올 게시물의 개수를 나타냅니다.
+ *       example: 10
+ *     responses:
+ *        "200":
+ *          description: "내 최근 게시물을 불러오는데 성공하였습니다."
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "successful"
+ *                  data:
+ *                    type: object
+ *                    properties:
+ *                      title:
+ *                        type: string
+ *                        example: "글 제목"
+ *                      contents:
+ *                        type: string
+ *                        example: "본문"
+ *                      price:
+ *                        type: string
+ *                        example: "가격 정보"
+ *                      image_src:
+ *                        type: string
+ *                        example: "이미지 파일의  주소"
+ *                      user_id:
+ *                        type: integer
+ *                        example: "유저 아이디" 
+ *                      createdAt:
+ *                        type: string
+ *                        example: "글 작성 시각"
+ *                      updatedAt:
+ *                        type: string
+ *                        example: "한국 표준시(KST)기준 최근 수정 시각"
+ *        "400":
+ *          description: "사용자 인증 관련"
+ *          content:
+ *            applycation/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "인증 정보가 만료되었습니다. / 비정상적인 접근입니다."
+ *  
+ * 
+ *        "500":
+ *          description: "데이터베이스 서버 오류"
+ *          content:
+ *            applycation/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "데이터베이스 서버 오류"
+ */
 
 router.get('/', controller.get);
-router.post('/', controller.post);
-router.get('/my', controller.my);
+
+//인증이 필요한 부분
+router.post('/', authentication, controller.post);
+router.get('/my', authentication, controller.my);
 
 
 module.exports = router;

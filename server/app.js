@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require('express')
 const cors = require('cors');
-const PORT = 80
+const PORT = process.env.SERVER_PORT
 const fs = require('fs');
 const https = require('https');
 const cookieParser = require("cookie-parser")
@@ -12,7 +12,7 @@ const app = express()
 // 위와 같이 express와 app을 변수로 사용한다.
 
 let corsOptions = {
-    origin: 'https://local.cokkirimarket.xyz:3000, *',
+    origin: 'https://local.cokkirimarket.xyz:3000',
     allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: ['Content-Type'],
     credentials: true
@@ -26,19 +26,23 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
 
-app.set('etag', false);
+app.set('etag', false)
 
 let server;
 
-if (fs.existsSync('./key.pem') && fs.existsSync('./cert.pem')) {
-  const privateKey = fs.readFileSync(__dirname + '/key.pem', 'utf8');
-  const certificate = fs.readFileSync(__dirname + '/cert.pem', 'utf8');
-  const credentials = { key: privateKey, cert: certificate };
-
-  server = https.createServer(credentials, app);
-  server.listen(PORT, () => console.log(`https server runnning on port ${PORT}`));
-} else {
-  server = app.listen(PORT, () => console.log(`http server runnning on port ${PORT}`));
+try {
+  https
+    .createServer(
+      {
+        key: fs.readFileSync(__dirname + `/` + process.env.SSL_KEY, 'utf-8'),
+        cert: fs.readFileSync(__dirname + `/` + process.env.SSL_CERT, 'utf-8'),
+      },
+      app
+    )
+    .listen(PORT);
+    console.log(`${process.env.NODE_ENV} 환경에서 서버가 ${PORT} 번 포트에서 실행되었습니다.`)
+} catch (error) {
+  console.log(error)
 }
 
 module.exports = server;
