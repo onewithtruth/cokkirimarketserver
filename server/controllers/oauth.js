@@ -212,7 +212,6 @@ module.exports = {
       
       let kakaoDataResponse = await axios(userInfoOptions);
       // console.log(kakaoDataResponse)
-    //   // let { name, email} = googleDataResponse.data
       let nickname = kakaoDataResponse.data.properties.nickname
       let email = kakaoDataResponse.data.kakao_account.email
       // console.log(email)
