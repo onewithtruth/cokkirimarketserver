@@ -22,7 +22,9 @@ module.exports = {
       },
     }
 
-    let githubResponse = await axios(accessTokenOptions).catch((err) => null);
+    let githubResponse = await axios(accessTokenOptions).catch((err) => {
+      res.status(400).send({ message: '잘못된 요청입니다.' })
+    });
     let githubAccessToken = githubResponse.data.access_token;
     // console.log(githubResponse);
     // console.log(githubAccessToken);
@@ -55,8 +57,8 @@ module.exports = {
         const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
         const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
         const newResponse = {accessToken: accessToken};
-        console.log(refreshToken)
-        res.status(200).cookie("refreshToken", refreshToken, {
+        // console.log(refreshToken)
+        res.status(201).cookie("refreshToken", refreshToken, {
           domain: "localhost",
           path: "/",
           httpOnly: true,
@@ -96,7 +98,7 @@ module.exports = {
           "email": email,
           "nickname": login
         });
-        console.log("newUser's Data:", newUser.dataValues);
+        // console.log("newUser's Data:", newUser.dataValues);
         tokenMaker(newUser)
       } else {
         // console.log(existingUser.dataValues)
@@ -113,7 +115,9 @@ module.exports = {
       url: `https://oauth2.googleapis.com/token?client_id=${process.env.GOOGLE_CLIENT_ID}&client_secret=${process.env.GOOGLE_CLIENT_SECRET}&code=${req.body.authorizationCode}&grant_type=authorization_code&redirect_uri=${process.env.GOOGLE_REDIRECT_URL}`,
     };
 
-    let googleResponse = await axios(accessTokenOptions).catch((err) => null);
+    let googleResponse = await axios(accessTokenOptions).catch((err) => {
+      res.status(400).send({ message: '잘못된 요청입니다.' })
+    });
     
     if (googleResponse) {
       let googleAccessToken = googleResponse.data.access_token;
@@ -144,8 +148,8 @@ module.exports = {
         const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
         const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
         const newResponse = {accessToken: accessToken};
-        console.log(newResponse)
-        res.status(200).cookie("refreshToken", refreshToken, {
+        // console.log(newResponse)
+        res.status(201).cookie("refreshToken", refreshToken, {
           domain: "localhost",
           path: "/",
           httpOnly: true,
@@ -183,7 +187,7 @@ module.exports = {
           "email": email,
           "nickname": name
         });
-        console.log("newUser's Data:", newUser.dataValues);
+        // console.log("newUser's Data:", newUser.dataValues);
         tokenMaker(newUser)
       } else {
         // console.log(existingUser.dataValues)
@@ -198,7 +202,9 @@ module.exports = {
       method: "POST",
       url: `https://kauth.kakao.com/oauth/token?code=${req.body.authorizationCode}&client_id=${process.env.KAKAO_CLIENT_ID}&client_secret=${process.env.KAKAO_CLIENT_SECRET}&redirect_uri=${process.env.KAKAO_REDIRECT_URL}&grant_type=authorization_code`,
     }
-    let kakaoResponse = await axios(accessTokenOptions).catch((err) => null);;
+    let kakaoResponse = await axios(accessTokenOptions).catch((err) => {
+      res.status(400).send({ message: '잘못된 요청입니다.' })
+    });
     // console.log(kakaoResponse)
     if (kakaoResponse){
       const kakaoAccessToken = kakaoResponse.data.access_token;
@@ -233,8 +239,8 @@ module.exports = {
         const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
         const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
         const newResponse = {accessToken: accessToken};
-        console.log(refreshToken)
-        res.status(200).cookie("refreshToken", refreshToken, {
+        // console.log(refreshToken)
+        res.status(201).cookie("refreshToken", refreshToken, {
           domain: "localhost",
           path: "/",
           httpOnly: true,
