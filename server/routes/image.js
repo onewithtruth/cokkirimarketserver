@@ -8,7 +8,7 @@ const controller = require('../controllers/image')
 /**
  * @swagger
  * 
- * /oauth/github:
+ * /image/geturl:
  *   post:
  *     description: Github OAuth 2.0 을 통해 가입 및 로그인을 요청합니다.
  *     tags: [OAuth2.0]
