@@ -21,9 +21,11 @@ module.exports = {
       .then((response) => {
         // console.log(response.data.result)
         const payload = response.data.result;
-        res.status(200).send({data: payload})
+        res.status(201).send({data: payload,  message: "ok"})
       })
-      .catch((err) => null);
+      .catch((err) => {
+        res.status(400).send({ message: '잘못된 요청입니다.' })
+      });
   },
 
   geturl: async (req, res) => {
@@ -42,8 +44,10 @@ module.exports = {
       .then((response) => {
         // console.log(response.data.result)
         const payload = response.data.result;
-        res.status(200).send({data: payload}) 
+        res.status(201).send({data: payload, message: "ok"}) 
       })
-      .catch((err) => null);
+      .catch((err) => {
+        res.status(400).send({ message: '잘못된 요청입니다.' })
+      });
   }
 }
