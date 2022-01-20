@@ -25,13 +25,13 @@ const swaggerDefinition = {
             description: "development server(hojin)"
         }
     ],
-    schemas: ["https"],
-    basePath : "/" // base path
+    schemas: [],
+    basePath : '/', // base path
 };
 
 const options = {
     swaggerDefinition: swaggerDefinition,
-    apis : [__dirname + '/../routes/*.js'],
+    apis : [`${__dirname}/../routes/*.js`, __dirname + `${__dirname}/predefinedspec/*.yaml`],
 };
 
 const swaggerSpec = swaggerJSDoc(options);

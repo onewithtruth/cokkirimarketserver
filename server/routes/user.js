@@ -166,7 +166,7 @@ const { authentication } = require('../controllers/authentication')
  *       "200":
  *         description: "successful operation"
  * 
- * /user/signout:
+ * /user/delete:
  *  delete:
  *      description: 회원 탈퇴를 요청합니다.
  *      tags: [User]
@@ -208,6 +208,40 @@ const { authentication } = require('../controllers/authentication')
  *                              message:
  *                                  type: string
  *                                  example: "기타 오류"
+ * 
+ * /user/isduplicated/:
+ *    get:
+ *      description: 회원가입 시 이메일 인증을 위한 엔드포인트
+ *      tags: [User]
+ *      produces:
+ *      - "application/json"
+ *      parameters:
+ *      - in: query
+ *        name: email
+ *        required: true
+ *        type: string
+ *        description: 중복 조회할 이메일 아이디
+ *      responses:
+ *        "200":
+ *          description: "사용가능 여부를 리턴합니다."
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "사용가능한 닉네임 입니다 / 중복된 닉네임입니다."
+ *        "400":
+ *          description: "만료된 인증 요청"
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "만료된 인증 요청"
  *  
  * /user/verification/{token}:
  *    get:
@@ -252,6 +286,7 @@ router.get('/mypage', authentication, controller.mypage)
 router.post('/login', controller.login);
 router.get('/verification', controller.verification);
 router.post('/signup', controller.signup)
+router.get('/isduplicated', controller.isduplicated)
 
 
 module.exports = router;
