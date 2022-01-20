@@ -68,7 +68,7 @@ module.exports = {
             if(iscreated){
                 res.status(201).json({ message: 'successful' })
             } else {
-                res.status(400).json( { message: '닉네임이 중복되었습니다.' })
+                res.status(400).json( { message: 'email이 중복되었습니다.' })
             }
             
 
