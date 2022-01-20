@@ -1,0 +1,16 @@
+/user/logout2:
+   post:
+     description: 로그 아웃
+     tags: [User]
+     produces:
+       "application/json"
+     parameters:
+       in: header
+       required: true
+       name: Authorization
+       type: string
+       description: AccessToken
+       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
+     responses:
+       "200":
+       description: "successful operation"

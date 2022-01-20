@@ -1,0 +1,9 @@
+parameters:
+  Authorization:
+    name: Authorization
+    description: accessToken을 포함한 bearer 규격의 헤더
+    in: header
+    required: true
+    schema:
+      type: string
+      format: string
