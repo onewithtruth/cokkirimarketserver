@@ -6,7 +6,7 @@ const axios = require("axios");
 
 module.exports = {
   
-  images: async (req, res) => {
+  getimages: async (req, res) => {
     const options = {
       method: "GET",
       url: `https://api.cloudflare.com/client/v4/accounts/${cloudFlareACCID}/images/v1?page=1&per_page=50`,
@@ -26,7 +26,7 @@ module.exports = {
       .catch((err) => null);
   },
 
-  imagesupload: async (req, res) => {
+  geturl: async (req, res) => {
 
     const options = {
       method: "POST",
