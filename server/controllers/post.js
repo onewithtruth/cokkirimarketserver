@@ -1,15 +1,49 @@
+const models = require("../models/index");
+
 
 module.exports = {
-    get: (req, res) => {
-        res.status(200).send('GET: /post')
+    get: async (req, res) => {
+        const number = req.query.number || 10
+        const posts = await models.post.findAll({
+            limit: number,
+            order: [ [ 'createdAt', 'DESC' ]]
+        })
+        console.log
+        if(posts){
+            res.status(200).json({ message: '최근 작성 글 목록을 불러오는데 성공하였습니다.', data: posts })
+        } else {
+            res.status(500).json({ message: '데이터베이스 서버 오류' })
+        }
+        
     },
     
     post: (req, res) => {
         res.status(200).send('POST: /post')
     },
 
-    my: (req, res) => {
-        res.status(200).send('POST: /my')
+    my: async (req, res) => {
+        const number = req.query.number || 10
+        const userId = req.userInfo.id
+        //console.log(req.userInfo)
+        if(userId){
+            const posts = await models.post.findAll({
+                include: [
+                    { model: models.user, where: {id: userId}, as: "user", attributes: ["id"] },
+                ],
+                limit: number,
+                order: [ [ 'createdAt', 'DESC' ]],
+                attributes: { exclude: ["id"] }
+            })
+
+            if(posts){
+                res.status(200).json({ message: '내 최근 작성 글 목록을 불러오는데 성공하였습니다.', data: posts })
+            } else {
+                res.status(500).json({ message: '데이터베이스 서버 오류' })
+            }
+
+        } else {
+            req.status(500).json({ message: '알수 없는 오류', code: 'EP001' })
+        }
     },
 
     signin: (req, res) => {
