@@ -19,6 +19,10 @@ const swaggerDefinition = {
         {
             url: "https://dev1.cokkirimarket.xyz",
             description: "development server(dahyeon)"
+        },
+        {
+            url: "https://dev2.cokkirimarket.xyz",
+            description: "development server(hojin)"
         }
     ],
     schemas: ["https"],
