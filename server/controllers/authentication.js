@@ -1,20 +1,34 @@
 //모든 인증 요청을 받는 라우터입니다.
 const {
     isAuthorized,
+    checkRefeshToken,
+    generateAccessToken,
+    generateRefreshToken,
+    sendRefreshToken,
   } = require('./tokenControllers');
 
 module.exports = {
     authentication: async (req, res, next) => {
         console.log('인증 요청 발생')
-        const userInfo = await isAuthorized(req) // 토큰에서 해석된 유저정보
-        console.log('userInfo 는 ', userInfo)
-        if(!userInfo){  //authorization 헤더에 엑세스 토큰이 포함되어있는지 검사한다.
-            res.status(400).json({ message: '잘못된 요청입니다.' })
-        } else {
-            //인증 완료
+        const userInfoFromAccessToken = await isAuthorized(req) // 엑세스 토큰에서 복호화한 유저정보
+        const userInfoFromRefreshToken = await checkRefeshToken(req) //리프레시 토큰에서 복호화한 유저정보
+        console.log('userInfoFromAccessToken 는 ', userInfoFromAccessToken) //개발용
+        console.log('userInfoFromRefreshToken 는', userInfoFromRefreshToken) //개발용
+
+        if(userInfoFromAccessToken){  
+            //일단 엑세스 토큰이 유효하면 인증 완료
             //판단을 유보하고 다음 컨트롤러로 유저 정보와 함께 요청 전달
-            req.userInfo = userInfo
+            req.userInfo = userInfoFromAccessToken
             next();
+        } else if(!userInfoFromAccessToken && !userInfoFromRefreshToken) {  // 엑세스 토큰, 리프레시 토큰이 모두 만료된 경우
+            res.status(400).json({ message: '인증 정보가 만료되었습니다.' })
+        } else if(userInfoFromAccessToken !== userInfoFromRefreshToken) {
+            res.status(400).json({ message: '비정상적인 접근입니다.' }) // 엑세스 토큰, 리프레시 토큰에서 복호화된 정보가 서로 다른 경우
+        } else { //리프레시 토큰을 DB 정보와 대조후 엑세스 토큰과 같이 재발급 , 현재 DB 대조는 
+            generateAccessToken(userInfoFromRefreshToken)
+            const refreshToken = generateRefreshToken(userInfoFromRefreshToken)
+            sendRefreshToken(res, refreshToken)
         }
     },
 };
+

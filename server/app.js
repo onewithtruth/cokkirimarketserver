@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
 
-app.set('etag', false)
+app.set('etag', false);
 
 let server;
 

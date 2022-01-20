@@ -31,7 +31,7 @@ module.exports = {
       return null;
     }
   },
-  checkRefeshToken: (refreshToken) => {
+  checkRefeshToken: async (refreshToken) => {
     try {
       return verify(refreshToken, process.env.REFRESH_SECRET);
     } catch (err) {
