@@ -1,7 +1,5 @@
 require("dotenv").config();
 
-const cloudFlareACCID = process.env.CLOUDFLARE_ACCOUNT_ID;
-const cloudFlareAPITOKEN = process.env.CLOUDFLARE_API_TOKEN;
 const axios = require("axios");
 
 module.exports = {
@@ -16,8 +14,8 @@ module.exports = {
         "Accept": "application/json"
       },
       data: {
-        client_id: clientID,
-        client_secret: clientSecret,
+        client_id: process.env.GITHUB_CLIENT_ID,
+        client_secret: process.env.GITHUB_CLIENT_SECRET,
         code: req.body.authorizationCode,
       },
     }
