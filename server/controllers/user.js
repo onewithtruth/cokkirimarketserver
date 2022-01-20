@@ -60,7 +60,7 @@ module.exports = {
             }
 
             const [user, iscreated] = await models.user.findOrCreate({
-                where: { nickname: user_id },
+                where: { email: email },
                 defaults: newUserInfo
             })
             
