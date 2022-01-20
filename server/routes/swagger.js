@@ -4,7 +4,7 @@ const swaggerDefinition = {
     openapi: "3.0.0",
     info : { // 정보 작성
         title : "CoKkiriMarket",
-        version : "1.0.1",
+        version : "1.0.2",
         description : "CoKkiriMarket API DOCs",
         contact: {
             name: 'cokkiri',

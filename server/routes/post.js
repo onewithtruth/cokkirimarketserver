@@ -11,6 +11,13 @@ const controller = require('../controllers/post')
  *     tags: [Post]
  *     produces:
  *     - "application/json"
+ *     parameters:
+ *     - in: header
+ *       required: true
+ *       name: Authorization
+ *       type: string
+ *       description: AccessToken
+ *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  *     requestBody:
  *       required: true
  *       content:
@@ -112,11 +119,17 @@ const controller = require('../controllers/post')
  *                                example: "기타 오류"
  * 
  *   delete:
- *     description: 최근 작성 게시물을 불러옵니다.
+ *     description: 게시물을 삭제합니다.
  *     tags: [Post]
  *     produces:
  *     - "application/json"
  *     parameters:
+ *     - in: header
+ *       required: true
+ *       name: Authorization
+ *       type: string
+ *       description: AccessToken
+ *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  *     - in: path
  *       name: page
  *       type: integer
@@ -162,11 +175,17 @@ const controller = require('../controllers/post')
  *                                example: "기타 오류"
  * 
  *   patch:
- *     description: 최근 작성 게시물을 불러옵니다.
+ *     description: 게시물을 수정합니다.
  *     tags: [Post]
  *     produces:
  *     - "application/json"
  *     parameters:
+ *     - in: header
+ *       required: true
+ *       name: Authorization
+ *       type: string
+ *       description: AccessToken
+ *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  *     - in: path
  *       name: page
  *       type: integer
