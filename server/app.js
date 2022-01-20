@@ -15,7 +15,7 @@ let corsOptions = {
     origin: '*',
     allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: ['Content-Type'],
-    credentials: true
+    // credentials: true
 }
 
 app.use(cors(corsOptions));
