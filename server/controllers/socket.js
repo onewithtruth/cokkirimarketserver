@@ -6,7 +6,7 @@ module.exports = (io) => {
   
     socket.on("join_room", (data) => {
       socket.join(data);
-      console.log(`User with ID: ${socket.id} joined room: ${data}`);
+      console.log(`아이디: ${socket.id} 님이 ${data} 번 채팅방에 입장 하였습니다`);
     });
   
     socket.on("send_message", (data) => {
