@@ -7,6 +7,7 @@ const fs = require('fs');
 const https = require('https');
 const cookieParser = require("cookie-parser")
 const indexRouter = require('./routes/');
+const socket = require('./controllers/socket');
 
 const app = express()
 // 위와 같이 express와 app을 변수로 사용한다.
@@ -40,5 +41,15 @@ if (fs.existsSync('./key.pem') && fs.existsSync('./cert.pem')) {
 } else {
   server = app.listen(PORT, () => console.log(`http server runnning on port ${PORT}`));
 }
+
+// socket io server
+const io = require('socket.io')(server, {
+  cors: {
+    origin: "*",
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+  }
+});
+socket(io)
 
 module.exports = server;
