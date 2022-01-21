@@ -5,6 +5,7 @@ const postRouter = require('./post')
 const chatRouter = require('./chat')
 const imageRouter = require('./image')
 const oauthRouter = require('./oauth')
+const searchController = require('../controllers/search')
 const fs = require('fs')
 const path = require('path')
 
@@ -23,7 +24,9 @@ router.use('/post', postRouter);
 router.use('/chat', chatRouter);
 router.use('/image', imageRouter);
 router.use('/oauth', oauthRouter);
+router.use('/search', searchController);
 router.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerRouter, swaggerPageOptions));
+
 
 router.get('/public/*', async (req, res) => {
   res.setHeader('Content-Type', 'image/png');
