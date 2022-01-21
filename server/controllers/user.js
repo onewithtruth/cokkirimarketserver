@@ -4,11 +4,14 @@ const {
     generateRefreshToken,
     sendRefreshToken,
     sendAccessToken,
+    checkRefeshToken,
   } = require('./tokenControllers');
 
 module.exports = {
     logout: (req, res) => {
-        res.status(200).send('GET: user/post')
+        res.clearCookie('refreshToken')
+        //db에서 말소시키는 과정이 들어가야 하는 자리
+        res.status(200).send('로그아웃 요청이 성공적으로 완료되었습니다.')
     },
     
     login: async (req, res) => {
@@ -86,7 +89,7 @@ module.exports = {
     isduplicated: async (req, res) => {
         const email = req.query.email //쿼리 파라미터로 email 값을 받아온다.
         //console.log(email)
-        if(email) {
+        if(email) {     
             const user = await models.user.findOne({  //해당 email을 검색한다
                 where: {
                     email: email
@@ -103,4 +106,41 @@ module.exports = {
             res.status(400).send({ message: '잘못된 요청입니다.' })
         }
     },
+
+    delete: async (req, res) => {
+        const userInfoFromAccessToken = req.userInfo
+        const userInfoFromRefreshToken = await checkRefeshToken(req)
+        console.log('회원 탈퇴 요청, 각 토큰에서 해석한 유저 email은 각각 다음과 같습니다.', req.userInfo.id, userInfoFromRefreshToken.id)
+        console.log('쿠키는', req.cookies)
+        const keysArr = Object.keys(userInfoFromRefreshToken)
+        
+        delete userInfoFromAccessToken.createdAt
+        delete userInfoFromAccessToken.updatedAt
+        delete userInfoFromAccessToken.iat
+        delete userInfoFromAccessToken.exp
+
+        delete userInfoFromRefreshToken.createdAt
+        delete userInfoFromRefreshToken.updatedAt
+        delete userInfoFromRefreshToken.iat
+        delete userInfoFromRefreshToken.exp
+
+        keysArr.forEach((elements) => {
+            if(userInfoFromAccessToken[elements] !== userInfoFromRefreshToken[elements]) {
+                return res.status(401).json({ message: '유효하지 않은 인증 정보' })
+            }
+        })
+        const deletedUser = await models.user.destroy({
+            where: {
+                id: userInfoFromAccessToken.id
+            }
+        })
+        if(deletedUser) {
+            console.log(deletedUser)
+            res.status(200).json({ message: '삭제됨' })
+        } else {
+        res.status(500).json({message: '기타 오류'})
+        }
+
+       
+    }
 };
