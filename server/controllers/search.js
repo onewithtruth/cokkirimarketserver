@@ -16,7 +16,7 @@ module.exports = {
         postLists = await models.post.findAll({
           where: {
             title: {
-              [Op.match]: sequelize.fn(req.body.payload.query)
+              [Op.like]: '%' + req.body.payload.query + '%'
             }
           }
         })
