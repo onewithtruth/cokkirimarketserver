@@ -24,7 +24,7 @@ router.use('/post', postRouter);
 router.use('/chat', chatRouter);
 router.use('/image', imageRouter);
 router.use('/oauth', oauthRouter);
-router.use('/search', searchController);
+router.use('/search', searchController.get);
 router.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerRouter, swaggerPageOptions));
 
 
