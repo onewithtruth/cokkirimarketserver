@@ -4,8 +4,7 @@ const { Op } = require("sequelize");
 
 module.exports = {
   post: async (req, res) => {
-    // console.log(req.body)  
-    // res.status(200).send('GET: /post')
+    // console.log(req.body)
     
     if(req.body.payload){
       let postLists;
@@ -25,7 +24,7 @@ module.exports = {
           return elem.title.indexOf(req.body.payload.query) !== -1;
         }));
 
-        res.status(200).send({data: postLists, message: "ok"})
+        res.status(201).send({data: postLists, message: "ok"})
 
       } else {
 
