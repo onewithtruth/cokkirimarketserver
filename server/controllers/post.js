@@ -21,8 +21,17 @@ module.exports = {
         res.status(200).send('POST: /post')
     },
 
+    patch: (req, res) => {
+        res.status(200).send('POST: /post')
+    },
+
+    delete: (req, res) => {
+
+    },
+
     my: async (req, res) => {
-        const number = req.query.number || 10
+        const number = parseInt(req.query.number) || 10
+        console.log(number)
         const userId = req.userInfo.id
         //console.log(req.userInfo)
         if(userId){

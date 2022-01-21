@@ -336,6 +336,8 @@ router.get('/', controller.get);
 
 //인증이 필요한 부분
 router.post('/', authentication, controller.post);
+router.delete('/', authentication, controller.delete);
+router.patch('/', authentication, controller.patch);
 router.get('/my', authentication, controller.my);
 
 

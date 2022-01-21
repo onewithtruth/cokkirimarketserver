@@ -56,20 +56,35 @@ const { authentication } = require('../controllers/authentication')
  *                               example: "기타 오류"
  * 
  * /user/authorize:
- *   post:
- *     description: 게시물 생성
+ *   get:
+ *     description: 필요에 따라 엑세스 토큰을 재발급합니다.
  *     tags: [User]
  *     produces:
  *     - "application/json"
  *     parameters:
- *     - in: path
- *       name: user
+ *     - in: header
  *       required: true
- *       type: integer
- *       description: 유저 Id
+ *       name: Authorization
+ *       type: string
+ *       description: AccessToken
+ *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  *     responses:
  *       "200":
  *         description: "successful operation"
+ *       "401":
+ *         description: "엑세스 토큰은 발급된 후 30분 후에 만료됩니다. 만료된 토큰을 사용하려고 하면 401응답을 받게되며 리프레시 토큰이 유요한 경우 엑세스 토큰을 재발급 합니다."
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "엑세스 토큰을 갱신합니다."
+ *                 accessToken:
+ *                   type: string
+ *                   description: AccessToken
+ *                   example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  * 
  * /user/mypage:
  *   get:
@@ -276,6 +291,20 @@ const { authentication } = require('../controllers/authentication')
  *                  message:
  *                    type: string
  *                    example: "만료된 인증 요청"
+ *        "401":
+ *          description: "엑세스 토큰은 발급된 후 30분 후에 만료됩니다. 만료된 토큰을 사용하려고 하면 401응답을 받게되며 리프레시 토큰이 유요한 경우 엑세스 토큰을 재발급 합니다."
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "엑세스 토큰을 갱신합니다."
+ *                  accessToken:
+ *                    type: string
+ *                    description: AccessToken
+ *                    example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  * 
  */
 
@@ -287,6 +316,7 @@ router.post('/login', controller.login);
 router.get('/verification', controller.verification);
 router.post('/signup', controller.signup)
 router.get('/isduplicated', controller.isduplicated)
+router.delete('/', authentication, controller.delete)
 
 
 module.exports = router;
