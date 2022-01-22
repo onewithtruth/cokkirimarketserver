@@ -1,13 +1,16 @@
 const models = require("../models/index");
-const Post_has_categories = models.post_has_categories
-const sequelize = models.sequelize
-const Post = models.post
-const Categories = models.categories
 
 
 module.exports = {
     get: async (req, res) => {
         const number = req.query.number || 10
+        const id = req.query.id || null
+        let condition = null;
+        if(id) {
+            condition = {
+                id: parseInt(id)
+            }
+        }
         const posts = await models.post.findAll({
             include: [
                 { model: models.post_has_categories,
@@ -15,7 +18,10 @@ module.exports = {
                     as: "post_has_categories", attributes: ["categories_id"] },
             ],
             limit: number,
-            order: [ [ 'createdAt', 'DESC' ]]
+            order: [ [ 'createdAt', 'DESC' ]],
+            where: {
+                ...condition
+            }
         })
         if(posts){
             res.status(200).json({ message: '최근 작성 글 목록을 불러오는데 성공하였습니다.', data: posts })
@@ -27,7 +33,7 @@ module.exports = {
     
     post: async (req, res) => {
         const { title, contents, price, image_src, categories } = req.body
-        console.log(image_src)
+        //console.log(image_src) 개발용
 
         if(title && contents && price && image_src && categories) {
 
@@ -77,11 +83,70 @@ module.exports = {
         
     },
 
-    patch: (req, res) => {
-        res.status(200).send('POST: /post')
+    patch: async (req, res) => {
+        const { post_Id } = req.body
+        const patchData = {}
+        const keysArr = Object.keys(req.body)
+        
+        if(post_Id) {
+            const userIdFromPost = await (await models.post.findOne({ where: {id: post_Id} })).dataValues.user_id
+            if(userIdFromPost === req.userInfo.id) {
+                keysArr.forEach(elements => {
+                    if(req.body[elements]){
+                        patchData[elements] = req.body[elements]
+                    }
+                })
+        
+                const post = await models.post.update(patchData, {
+                    where: {
+                        id: post_Id
+                    }
+                })
+
+                if(post) {
+                    res.status(200).json({ message: '작성글 정보를 성공적으로 수정하였습니다.'})
+                } else {
+                    res.status(500).json({ mesaage: '기타 오류' })
+                }
+        
+
+            } else {
+                res.status(403).json({ message: '권한이 없습니다.' })
+            }
+
+        } else {
+            res.status(500).json({ mesaage: '기타 오류' })
+        }
+
     },
 
-    delete: (req, res) => {
+    delete: async (req, res) => {
+        const { post_Id } = req.body
+
+        if(post_Id) {
+            const userIdFromPost = await (await models.post.findOne({ where: {id: post_Id} })).dataValues.user_id
+            if(userIdFromPost === req.userInfo.id) {
+        
+                const deletedPost = await models.post.destroy(patchData, {
+                    where: {
+                        id: post_Id
+                    }
+                })
+
+                if(deletedPost) {
+                    res.status(200).json({ message: '작성글 정보를 성공적으로 삭제하였습니다.'})
+                } else {
+                    res.status(500).json({ mesaage: '기타 오류' })
+                }
+        
+
+            } else {
+                res.status(403).json({ message: '권한이 없습니다.' })
+            }
+
+        } else {
+            res.status(500).json({ mesaage: '기타 오류' })
+        }
 
     },
 

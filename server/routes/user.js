@@ -182,6 +182,48 @@ const { authentication } = require('../controllers/authentication')
  *         description: "successful operation"
  * 
  * /user:
+ *  patch:
+ *      description: 회원 정보의 일부 혹은 전체를 수정합니다.
+ *      tags: [User]
+ *      parameters:
+ *      - in: header
+ *        required: true
+ *        name: Authorization
+ *        type: string
+ *        description: AccessToken
+ *        example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
+ *      responses:
+ *          "204":
+ *              description: "회원 정보가 성공적으로 수정되었습니다."
+ *              content:
+ *                  applycation/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              message:
+ *                                  type: string
+ *                                  example: "회원 정보가 성공적으로 수정되었습니다."
+ *          "401":
+ *              description: "인증 정보가 만료되었습니다."
+ *              content:
+ *                  applycation/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              message:
+ *                                  type: string
+ *                                  example: "Invalid user"
+ *          "500":
+ *              description: "기타 오류"
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              message:
+ *                                  type: string
+ *                                  example: "기타 오류"
+ * 
  *  delete:
  *      description: 회원 탈퇴를 요청합니다.
  *      tags: [User]
@@ -311,12 +353,14 @@ const { authentication } = require('../controllers/authentication')
 //인증이 필요한 경우에 authentication 컨트롤러를 먼저 전달한다.
 router.get('/logout', authentication, controller.logout);
 router.get('/mypage', authentication, controller.mypage)
+router.delete('/', authentication, controller.delete)
+router.patch('/', authentication, controller.patch)
 
 router.post('/login', controller.login);
 router.get('/verification', controller.verification);
 router.post('/signup', controller.signup)
 router.get('/isduplicated', controller.isduplicated)
-router.delete('/', authentication, controller.delete)
+
 
 
 module.exports = router;
