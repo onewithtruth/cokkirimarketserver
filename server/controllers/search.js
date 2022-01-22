@@ -9,13 +9,13 @@ module.exports = {
     if(req.body){
       let categoryLists;
       categoryLists = await models.categories.findAll({
-        attributes: ['category']
+        attributes: ['id', 'category']
       })
-
+      // console.log(categoryLists[0].dataValues)
       categoryLists = categoryLists.map((elem) => {
-        return elem.dataValues.category
+        return elem.dataValues
       })
-
+      
       // console.log(categoryLists)
 
       res.status(201).send({ data: categoryLists, message: "ok"})
