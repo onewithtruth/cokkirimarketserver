@@ -37,7 +37,7 @@ module.exports = {
                 });
             } else {
                 //올바르지 않은 유저 정보
-                res.status(400).json({ message: '로그인 실패' })
+                res.status(400).json({ message: '로그인 정보의 유효성 문제로 로그인에 실패하였습니다.' })
             } 
 
         } else {
@@ -126,7 +126,7 @@ module.exports = {
 
         keysArr.forEach((elements) => {
             if(userInfoFromAccessToken[elements] !== userInfoFromRefreshToken[elements]) {
-                return res.status(401).json({ message: '유효하지 않은 인증 정보' })
+                return res.status(401).json({ message: '인증 정보가 만료되었습니다.' })
             }
         })
         const deletedUser = await models.user.destroy({
@@ -136,7 +136,7 @@ module.exports = {
         })
         if(deletedUser) {
             console.log(deletedUser)
-            res.status(200).json({ message: '삭제됨' })
+            res.status(204).json({ message: '회원 탈퇴 요청이 성공적으로 처리되었습니다.' })
         } else {
         res.status(500).json({message: '기타 오류'})
         }

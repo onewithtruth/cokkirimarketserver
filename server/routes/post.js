@@ -28,15 +28,17 @@ const { authentication } = require('../controllers/authentication')
  *             properties:
  *               title:
  *                 type: string
- *                 example: "string, 게시글 제목을 나타낸다."
- *               description:
+ *                 example: "노트북 팝니다"
+ *               contents:
  *                 type: string
- *                 example: "string, 게시글 내용이다."
+ *                 example: "거의 새제품이에요 직거래 하실분만 연락주세요"
  *               price:
  *                 type: integer
- *                 example: "integer, 상품 가격 정보이다."
- *               location:
- *                 example: "string, 게시자가 설정한 위치 정보이다."
+ *                 example: "1000000"
+ *               categories:
+ *                 example: "디지털기기"
+ *               image_src:
+ *                 example: "이미지 링크주소"
  *     responses:
  *        "201":
  *          description: "게시물 업로드 성공"
@@ -67,7 +69,7 @@ const { authentication } = require('../controllers/authentication')
  *                        properties:
  *                            message:
  *                                type: string
- *                                example: "기타 오류"
+ *                                example: "데이터베이스 서버 오류 혹은 입력한 값이 잘못되었습니다, 기타 오류"
  *     
  *   get:
  *     description: 최근 작성 게시물을 불러옵니다.
