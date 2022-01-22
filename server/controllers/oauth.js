@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const axios = require("axios");
+const e = require("express");
 const jwt = require('jsonwebtoken')
 const {user, refreshtoken} = require('../models')
 
@@ -25,10 +26,13 @@ module.exports = {
     let githubResponse = await axios(accessTokenOptions).catch((err) => {
       res.status(400).send({ message: '잘못된 요청입니다.' })
     });
-    // console.log(githubResponse);
-    let githubAccessToken = githubResponse.data.access_token;
-    // console.log(githubAccessToken);
-    if (githubAccessToken) {
+    // console.log(githubResponse.data.error === "bad_verification_code");
+    if (githubResponse.data.error === "bad_verification_code") {
+      res.status(400).send({ message: '잘못된 요청입니다.' })
+      
+    } else {
+      let githubAccessToken = githubResponse.data.access_token;
+      // console.log(githubAccessToken);
       const userInfoOptions = {
         method: "GET",
         url: 'https://api.github.com/user',
@@ -117,8 +121,15 @@ module.exports = {
     let googleResponse = await axios(accessTokenOptions).catch((err) => {
       res.status(400).send({ message: '잘못된 요청입니다.' })
     });
-    
-    if (googleResponse) {
+
+    // console.log(googleResponse)
+
+    if (googleResponse === undefined) {
+
+      return null;
+
+    } else {
+
       let googleAccessToken = googleResponse.data.access_token;
 
       const userInfoOptions = {
@@ -204,7 +215,7 @@ module.exports = {
     let kakaoResponse = await axios(accessTokenOptions).catch((err) => {
       res.status(400).send({ message: '잘못된 요청입니다.' })
     });
-    // console.log(kakaoResponse)
+
     if (kakaoResponse){
       const kakaoAccessToken = kakaoResponse.data.access_token;
       const userInfoOptions = {
@@ -217,7 +228,7 @@ module.exports = {
       
       let kakaoDataResponse = await axios(userInfoOptions);
       // console.log(kakaoDataResponse)
-      let nickname = kakaoDataResponse.data.properties.nickname
+      // let nickname = kakaoDataResponse.data.properties.nickname
       let email = kakaoDataResponse.data.kakao_account.email
       // console.log(email)
       // console.log(nickname)
