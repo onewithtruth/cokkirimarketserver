@@ -4,51 +4,6 @@ const axios = require("axios");
 const jwt = require('jsonwebtoken')
 const {user, refreshtoken} = require('../models')
 
-const tokenMaker = async (user) => {
-  const payload = {
-    id: user.dataValues.id,
-    email: user.dataValues.email,
-    nickname: user.dataValues.nickname,
-    createdAt: user.dataValues.createdAt,
-    updatedAt: user.dataValues.updatedAt
-  }
-  const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
-  const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
-  const newResponse = {accessToken: accessToken};
-  // console.log(refreshToken)
-  res.status(201).cookie("refreshToken", refreshToken, {
-    domain: "localhost",
-    path: "/",
-    httpOnly: true,
-    secure: true,
-    sameSite: "none"
-  })
-  .send({data: newResponse, message: "ok" });
-  
-  const existingRefreshToken = await refreshtoken.findOne({
-    where: {
-      "user_id": user.dataValues.id
-    }
-  });
-
-  if (!existingRefreshToken) {
-    const newRefreshToken = await refreshtoken.create({
-      "refreshtoken": refreshToken,
-      "user_id": user.dataValues.id
-    })
-    // console.log(newRefreshToken)
-  } else {
-    const updatedRefreshToken = await refreshtoken.update({
-      "refreshtoken": refreshToken
-    }, {
-      where: {
-        "user_id": user.dataValues.id
-      }
-    });
-    // console.log(updatedRefreshToken);
-  };
-}
-
 module.exports = {
   
   oauthgithub: async (req, res) => {
@@ -70,8 +25,8 @@ module.exports = {
     let githubResponse = await axios(accessTokenOptions).catch((err) => {
       res.status(400).send({ message: '잘못된 요청입니다.' })
     });
-    let githubAccessToken = githubResponse.data.access_token;
     // console.log(githubResponse);
+    let githubAccessToken = githubResponse.data.access_token;
     // console.log(githubAccessToken);
     if (githubAccessToken) {
       const userInfoOptions = {
@@ -91,6 +46,51 @@ module.exports = {
         }
       });
       
+      const tokenMaker = async (user) => {
+        const payload = {
+          id: user.dataValues.id,
+          email: user.dataValues.email,
+          nickname: user.dataValues.nickname,
+          createdAt: user.dataValues.createdAt,
+          updatedAt: user.dataValues.updatedAt
+        }
+        const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
+        const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
+        const newResponse = {accessToken: accessToken};
+        // console.log(refreshToken)
+        res.status(201).cookie("refreshToken", refreshToken, {
+          domain: "localhost",
+          path: "/",
+          httpOnly: true,
+          secure: true,
+          sameSite: "none"
+        })
+        .send({data: newResponse, message: "ok" });
+        
+        const existingRefreshToken = await refreshtoken.findOne({
+          where: {
+            "user_id": user.dataValues.id
+          }
+        });
+      
+        if (!existingRefreshToken) {
+          const newRefreshToken = await refreshtoken.create({
+            "refreshtoken": refreshToken,
+            "user_id": user.dataValues.id
+          })
+          // console.log(newRefreshToken)
+        } else {
+          const updatedRefreshToken = await refreshtoken.update({
+            "refreshtoken": refreshToken
+          }, {
+            where: {
+              "user_id": user.dataValues.id
+            }
+          });
+          // console.log(updatedRefreshToken);
+        };
+      }
+
       if (!existingUser) {
         const newUser = await marketApp_user.create({
           "email": email,
@@ -103,6 +103,7 @@ module.exports = {
         tokenMaker(existingUser)
       }
     }
+
     
   },
 
@@ -134,7 +135,52 @@ module.exports = {
           "email": email
         }
       });
-    
+      
+      const tokenMaker = async (user) => {
+        const payload = {
+          id: user.dataValues.id,
+          email: user.dataValues.email,
+          nickname: user.dataValues.nickname,
+          createdAt: user.dataValues.createdAt,
+          updatedAt: user.dataValues.updatedAt
+        }
+        const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
+        const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
+        const newResponse = {accessToken: accessToken};
+        // console.log(refreshToken)
+        res.status(201).cookie("refreshToken", refreshToken, {
+          domain: "localhost",
+          path: "/",
+          httpOnly: true,
+          secure: true,
+          sameSite: "none"
+        })
+        .send({data: newResponse, message: "ok" });
+        
+        const existingRefreshToken = await refreshtoken.findOne({
+          where: {
+            "user_id": user.dataValues.id
+          }
+        });
+      
+        if (!existingRefreshToken) {
+          const newRefreshToken = await refreshtoken.create({
+            "refreshtoken": refreshToken,
+            "user_id": user.dataValues.id
+          })
+          // console.log(newRefreshToken)
+        } else {
+          const updatedRefreshToken = await refreshtoken.update({
+            "refreshtoken": refreshToken
+          }, {
+            where: {
+              "user_id": user.dataValues.id
+            }
+          });
+          // console.log(updatedRefreshToken);
+        };
+      }
+
       if (!existingUser) {
         const newUser = await user.create({
           "email": email
@@ -146,6 +192,7 @@ module.exports = {
         tokenMaker(existingUser)
       }
     }
+
     
   },
 
@@ -179,7 +226,52 @@ module.exports = {
           "email": email
         }
       });
-    
+      
+      const tokenMaker = async (user) => {
+        const payload = {
+          id: user.dataValues.id,
+          email: user.dataValues.email,
+          nickname: user.dataValues.nickname,
+          createdAt: user.dataValues.createdAt,
+          updatedAt: user.dataValues.updatedAt
+        }
+        const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
+        const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
+        const newResponse = {accessToken: accessToken};
+        // console.log(refreshToken)
+        res.status(201).cookie("refreshToken", refreshToken, {
+          domain: "localhost",
+          path: "/",
+          httpOnly: true,
+          secure: true,
+          sameSite: "none"
+        })
+        .send({data: newResponse, message: "ok" });
+        
+        const existingRefreshToken = await refreshtoken.findOne({
+          where: {
+            "user_id": user.dataValues.id
+          }
+        });
+      
+        if (!existingRefreshToken) {
+          const newRefreshToken = await refreshtoken.create({
+            "refreshtoken": refreshToken,
+            "user_id": user.dataValues.id
+          })
+          // console.log(newRefreshToken)
+        } else {
+          const updatedRefreshToken = await refreshtoken.update({
+            "refreshtoken": refreshToken
+          }, {
+            where: {
+              "user_id": user.dataValues.id
+            }
+          });
+          // console.log(updatedRefreshToken);
+        };
+      }
+      
       if (!existingUser) {
         const newUser = await user.create({
           "email": email
@@ -191,6 +283,7 @@ module.exports = {
         tokenMaker(existingUser)
       }
     }
+
     
   }
 
