@@ -139,10 +139,10 @@ const { authentication } = require('../controllers/authentication')
  *       type: string
  *       description: AccessToken
  *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
- *     - in: path
- *       name: page
+ *     - in: query
+ *       name: id
  *       type: integer
- *       description: n번째 페이지의 자료를 불러옵니다.
+ *       description: 삭제할 게시물의 아이디
  *     responses:
  *        "200":
  *          description: "작성글 정보를 성공적으로 삭제하였습니다."
@@ -214,8 +214,8 @@ const { authentication } = require('../controllers/authentication')
  *               price:
  *                 type: integer
  *                 example: "1000000"
- *               categories:
- *                 example: "디지털기기"
+ *               category:
+ *                 example: "1"
  *               image_src:
  *                 example: "이미지 링크주소"
  *     responses:
