@@ -166,8 +166,7 @@ module.exports = {
 
         if (!existingRefreshToken) {
           const newRefreshToken = await refreshtoken.create({
-            "refreshtoken": refreshToken,
-            "user_id": user.dataValues.id
+            "refreshtoken": refreshToken
           })
           // console.log(newRefreshToken)
         } else {
@@ -184,8 +183,7 @@ module.exports = {
     
       if (!existingUser) {
         const newUser = await user.create({
-          "email": email,
-          "nickname": name
+          "email": email
         });
         // console.log("newUser's Data:", newUser.dataValues);
         tokenMaker(newUser)
@@ -276,8 +274,7 @@ module.exports = {
     
       if (!existingUser) {
         const newUser = await user.create({
-          "email": email,
-          "nickname": nickname
+          "email": email
         });
         // console.log("newUser's Data:", newUser.dataValues);
         tokenMaker(newUser)

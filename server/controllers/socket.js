@@ -1,3 +1,5 @@
+const models = require("../models/index");
+const axios = require("axios");
 
 module.exports = (io) => {
 
@@ -9,8 +11,17 @@ module.exports = (io) => {
       console.log(`아이디: ${socket.id} 님이 ${data} 번 채팅방에 입장 하였습니다`);
     });
   
-    socket.on("send_message", (data) => {
+    socket.on("send_message", async (data) => {
       socket.to(data.room).emit("receive_message", data);
+      console.log(data)
+
+      await models.post.findAll({
+        where: {
+          title: {
+            [Op.like]: '%' + req.body.payload.query + '%'
+          }
+        }
+      })
     });
   
     socket.on("disconnect", () => {
