@@ -147,7 +147,7 @@ module.exports = {
         const patchData = {
             email: email ? email : req.userInfo.email,
             password: password ? password : req.userInfo.password,
-            user_id: user_id ? user_id : req.userInfo.nickname
+            nickname: user_id ? user_id : req.userInfo.nickname
         }
 
 
