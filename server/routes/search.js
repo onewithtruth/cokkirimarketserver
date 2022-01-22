@@ -1,3 +1,7 @@
+const express = require('express');
+const router = express.Router();
+const searchController = require('../controllers/search');
+
 /* GET links listing. */
 
 /**
@@ -60,3 +64,9 @@
  *                               example: "잘못된 요청입니다."
  * 
  */
+
+
+router.post('/', searchController.post);
+router.get('/', searchController.get);
+
+module.exports = router;

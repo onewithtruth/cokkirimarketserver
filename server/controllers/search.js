@@ -3,6 +3,28 @@ const axios = require("axios");
 const { Op } = require("sequelize");
 
 module.exports = {
+
+  get: async (req, res) => {
+    // console.log(req.body);
+    if(req.body.payload){
+      let categoryLists;
+      categoryLists = await models.categories.findAll({
+        attributes: ['category']
+      })
+
+      categoryLists = categoryLists.map((elem) => {
+        return elem.dataValues.category
+      })
+
+      // console.log(categoryLists)
+
+      res.status(201).send({ data: categoryLists, message: "ok"})
+
+    } else {
+        res.status(500).json({ message: '기타 오류' })
+    }
+  },
+  
   post: async (req, res) => {
     // console.log(req.body)
     
