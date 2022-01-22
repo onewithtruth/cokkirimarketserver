@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     nickname: {
       type: DataTypes.STRING(15),
-      allowNull: false
+      allowNull: true
     },
     email: {
       type: DataTypes.STRING(45),
