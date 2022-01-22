@@ -16,11 +16,8 @@ module.exports = (io) => {
       console.log(data)
 
       await models.chat.create({
-        where: {
-          title: {
-            [Op.like]: '%' + req.body.payload.query + '%'
-          }
-        }
+        "user_id": 1,
+        "text": data.message
       })
     });
   

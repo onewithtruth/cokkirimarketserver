@@ -56,7 +56,7 @@ module.exports = {
         }
         const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
         const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
-        const newResponse = {accessToken: accessToken};
+        const newResponse = {accessToken: accessToken, email: user.dataValues.email };
         // console.log(refreshToken)
         res.status(201).cookie("refreshToken", refreshToken, {
           domain: "localhost",
@@ -146,7 +146,7 @@ module.exports = {
         }
         const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
         const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
-        const newResponse = {accessToken: accessToken};
+        const newResponse = {accessToken: accessToken, email: user.dataValues.email};
         // console.log(refreshToken)
         res.status(201).cookie("refreshToken", refreshToken, {
           domain: "localhost",
@@ -237,7 +237,7 @@ module.exports = {
         }
         const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
         const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
-        const newResponse = {accessToken: accessToken};
+        const newResponse = {accessToken: accessToken, email: user.dataValues.email };
         // console.log(refreshToken)
         res.status(201).cookie("refreshToken", refreshToken, {
           domain: "localhost",
