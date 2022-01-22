@@ -181,7 +181,7 @@ const { authentication } = require('../controllers/authentication')
  *       "200":
  *         description: "successful operation"
  * 
- * /user/delete:
+ * /user:
  *  delete:
  *      description: 회원 탈퇴를 요청합니다.
  *      tags: [User]
@@ -194,7 +194,7 @@ const { authentication } = require('../controllers/authentication')
  *        example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
  *      responses:
  *          "204":
- *              description: "회원 탈퇴에 성공하였습니다."
+ *              description: "회원 탈퇴 요청이 성공적으로 처리되었습니다."
  *              content:
  *                  applycation/json:
  *                      schema:
@@ -203,8 +203,8 @@ const { authentication } = require('../controllers/authentication')
  *                              message:
  *                                  type: string
  *                                  example: "successful"
- *          "400":
- *              description: "유효하지 않은 요청입니다."
+ *          "401":
+ *              description: "인증 정보가 만료되었습니다."
  *              content:
  *                  applycation/json:
  *                      schema:
