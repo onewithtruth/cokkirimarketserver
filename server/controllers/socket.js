@@ -15,7 +15,7 @@ module.exports = (io) => {
       socket.to(data.room).emit("receive_message", data);
       console.log(data)
 
-      await models.post.findAll({
+      await models.chat.create({
         where: {
           title: {
             [Op.like]: '%' + req.body.payload.query + '%'
