@@ -140,7 +140,25 @@ module.exports = {
         } else {
         res.status(500).json({message: '기타 오류'})
         }
+    },
 
-       
-    }
+    patch: async (req, res) => {
+        const { email, password, user_id } = req.body
+        const patchData = {
+            email: email ? email : req.userInfo.email,
+            password: password ? password : req.userInfo.password,
+            user_id: user_id ? user_id : req.userInfo.nickname
+        }
+
+
+        const user = await models.user.update(patchData, {
+            where: {
+                id: req.userInfo.id
+            }
+        })
+
+        if(user) {
+            res.status(200).json({ message: '회원 정보가 성공적으로 수정되었습니다.'})
+        }
+    },
 };

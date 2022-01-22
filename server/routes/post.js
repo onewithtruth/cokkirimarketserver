@@ -82,6 +82,11 @@ const { authentication } = require('../controllers/authentication')
  *       type: integer
  *       description: 불러올 게시물의 개수를 나타냅니다.
  *       example: 10
+ *     - in: query
+ *       name: id
+ *       type: integer
+ *       description: 특정 게시물을 요청할 경우 게시물 id를 요청 url의 파라미터로 추가할 수 있습니다.
+ *       example: 1
  *     responses:
  *        "200":
  *          description: "게시물 불러오기 성공"
@@ -140,33 +145,15 @@ const { authentication } = require('../controllers/authentication')
  *       description: n번째 페이지의 자료를 불러옵니다.
  *     responses:
  *        "200":
- *          description: "게시물 불러오기 성공"
+ *          description: "작성글 정보를 성공적으로 삭제하였습니다."
  *          content:
- *            application/json:
+ *            applycation/json:
  *              schema:
  *                type: object
  *                properties:
- *                  title:
+ *                  message:
  *                    type: string
- *                    example: "string, 게시글 제목을 나타낸다."
- *                  description:
- *                    type: string
- *                    example: "string, 게시글 내용이다."
- *                  price:
- *                    type: integer
- *                    example: "integer, 상품 가격 정보이다."
- *                  author:
- *                    type: string
- *                    example: "string, 게시글 작성자 정보이다."
- *                  image:
- *                    type: string
- *                    example: "string, 게시글 첨부 이미지의 URL 이다."
- *                  location:
- *                    type: string
- *                    example: "string, 게시자가 설정한 위치 정보이다."
- *                  created_at:
- *                    type: string
- *                    example: "DATETIME, 한국 표준시(KST) 기준 생성 시간을 나타낸다."
+ *                    example: "작성글 정보를 성공적으로 삭제하였습니다."
  * 
  *        "400":
  *          description: "사용자 인증 관련"
@@ -178,6 +165,16 @@ const { authentication } = require('../controllers/authentication')
  *                  message:
  *                    type: string
  *                    example: "인증 정보가 만료되었습니다. / 비정상적인 접근입니다."
+ *        "403":
+ *          description: "권한이 없습니다."
+ *          content:
+ *            applycation/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "권한이 없습니다."
  *        "500":
  *            description: "기타 오류"
  *            content:
@@ -201,39 +198,37 @@ const { authentication } = require('../controllers/authentication')
  *       type: string
  *       description: AccessToken
  *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
- *     - in: path
- *       name: page
- *       type: integer
- *       description: n번째 페이지의 자료를 불러옵니다.
+ *     requestBody:
+ *       required: false
+ *       content:
+ *         application/json:
+ *           schema:      # Request body contents
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: "노트북 팝니다"
+ *               contents:
+ *                 type: string
+ *                 example: "거의 새제품이에요 직거래 하실분만 연락주세요"
+ *               price:
+ *                 type: integer
+ *                 example: "1000000"
+ *               categories:
+ *                 example: "디지털기기"
+ *               image_src:
+ *                 example: "이미지 링크주소"
  *     responses:
  *        "200":
- *          description: "게시물 불러오기 성공"
+ *          description: "작성글 정보를 성공적으로 수정하였습니다."
  *          content:
- *            application/json:
+ *            applycation/json:
  *              schema:
  *                type: object
  *                properties:
- *                  title:
+ *                  message:
  *                    type: string
- *                    example: "string, 게시글 제목을 나타낸다."
- *                  description:
- *                    type: string
- *                    example: "string, 게시글 내용이다."
- *                  price:
- *                    type: integer
- *                    example: "integer, 상품 가격 정보이다."
- *                  author:
- *                    type: string
- *                    example: "string, 게시글 작성자 정보이다."
- *                  image:
- *                    type: string
- *                    example: "string, 게시글 첨부 이미지의 URL 이다."
- *                  location:
- *                    type: string
- *                    example: "string, 게시자가 설정한 위치 정보이다."
- *                  created_at:
- *                    type: string
- *                    example: "DATETIME, 한국 표준시(KST) 기준 생성 시간을 나타낸다."
+ *                    example: "작성글 정보를 성공적으로 수정하였습니다."
  *        "400":
  *          description: "사용자 인증 관련"
  *          content:
@@ -244,6 +239,16 @@ const { authentication } = require('../controllers/authentication')
  *                  message:
  *                    type: string
  *                    example: "인증 정보가 만료되었습니다. / 비정상적인 접근입니다."
+ *        "403":
+ *          description: "권한이 없습니다."
+ *          content:
+ *            applycation/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  message:
+ *                    type: string
+ *                    example: "권한이 없습니다."
  * 
  *        "500":
  *          description: "데이터베이스 서버 오류"
