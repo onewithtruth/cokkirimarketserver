@@ -6,7 +6,7 @@ module.exports = {
 
   get: async (req, res) => {
     // console.log(req.body);
-    if(req.body.payload){
+    if(req.body){
       let categoryLists;
       categoryLists = await models.categories.findAll({
         attributes: ['category']
