@@ -39,44 +39,45 @@ module.exports = {
 
             const category = await models.categories.findOne({
                 where: {
-                    category: categories,
+                    id: categories,
 
                 }
             })
 
             if(!category) {
                 return res.status(500).json({ message: '존재하지 않는 카테고리입니다.' })
-            }
-
-            const postData = {
-                title: title,
-                contents: contents,
-                price: price,
-                image_src: image_src,
-                user_id: req.userInfo.id
-            }
-
-            const newPost = await models.post.create(postData)
-            const newPostId = newPost.dataValues.id
-            
-
-
-            const categoryData = {
-                post_id: newPostId,
-                categories_id: category.id
-            }
-
-            const categoryMapping = await models.post_has_categories.create(categoryData)
-
-            console.log(categoryMapping)
-
-            
-            
-            if(newPost && category && categoryMapping) {
-                res.status(201).json({ message: '게시물 업로드 성공' })
             } else {
-                res.statue(500).json({ message: '데이터베이스 서버 오류 혹은 입력한 값이 잘못되었습니다.' })
+                const postData = {
+                    title: title,
+                    contents: contents,
+                    price: price,
+                    image_src: image_src,
+                    user_id: req.userInfo.id
+                }
+    
+                const newPost = await models.post.create(postData)
+                const newPostId = newPost.dataValues.id
+                
+    
+    
+                const categoryData = {
+                    post_id: newPostId,
+                    categories_id: category.id
+                }
+    
+                const categoryMapping = await models.post_has_categories.create(categoryData)
+    
+                console.log(categoryMapping)
+    
+                
+                
+                if(newPost && category && categoryMapping) {
+                    res.status(201).json({ message: '게시물 업로드 성공' })
+                } else {
+                    res.statue(500).json({ message: '데이터베이스 서버 오류 혹은 입력한 값이 잘못되었습니다.' })
+                }                
             }
+            
         } else {
             res.status(500).json({ message: '기타 오류' })
         }
