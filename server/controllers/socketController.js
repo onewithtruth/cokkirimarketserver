@@ -2,8 +2,8 @@ const models = require("../models");
 const { Op } = require("sequelize");
 
 module.exports = {
-  get: async (req, res) => {
-    console.log(req.query)
+  chatroomlist: async (req, res) => {
+    console.log(req.body)
     res.status(200).send({message: "ok"});
     // if (req.body.payload.user_id) {
 
@@ -75,7 +75,7 @@ module.exports = {
     
   },
 
-  post: async (req, res) => {
+  chatroom: async (req, res) => {
     // console.log(req.body.payload)
     if (req.body.payload.email) {
       let postAuthorId = await models.post.findOne({
