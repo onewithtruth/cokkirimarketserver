@@ -24,6 +24,11 @@ module.exports = (io) => {
     socket.on("disconnect", () => {
       console.log("User Disconnected", socket.id);
     });
+
+
+    socket.on("server_log", () => {
+      socket.emit("server_msg", "123");
+    })
   });
 
 };
