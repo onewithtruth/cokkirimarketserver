@@ -121,10 +121,16 @@ module.exports = {
         const id = req.query.id
 
         if(id) {
-            const userIdFromPost = await (await models.post.findOne({ where: {id: id} })).dataValues.user_id
+            const post = await models.post.findOne({ where: {id: id} })
+            if(!post){
+                return res.status(500).json({ message: '존재하지 않는 게시물입니다.'})
+            }
+
+            const userIdFromPost = post.dataValues.user_id
+            
             if(userIdFromPost === req.userInfo.id) {
         
-                const deletedPost = await models.post.destroy(patchData, {
+                const deletedPost = await models.post.destroy({
                     where: {
                         id: id
                     }
