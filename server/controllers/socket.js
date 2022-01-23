@@ -12,13 +12,30 @@ module.exports = (io) => {
     });
   
     socket.on("send_message", async (data) => {
-      console.log(data)
+      // console.log(data)
       socket.to(data.room).emit("receive_message", data);
 
-      await models.chat.create({
-        "user_id": 1,
+      let textAuthorId = await models.user.findOne({
+        attributes: ["id"],
+        where: {
+          email: data.author,
+        },
+      });
+  
+      textAuthorId = textAuthorId.dataValues.id;
+      // console.log(textAuthorId)
+
+      let newChatData = await models.chat.create({
+        "user_id": textAuthorId,
         "text": data.message
       })
+      // console.log(newChatData.dataValues.id);
+
+      await models.post_has_chat.create({
+        "post_id": data.room,
+        "chat_id": newChatData.dataValues.id
+      })
+
     });
   
     socket.on("disconnect", () => {
