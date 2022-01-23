@@ -5,15 +5,9 @@ module.exports = {
   get: async (req, res) => {
 
 
-    if (req.body.payload.email) {
+    if (req.body.payload.user_id) {
 
-      let myId = await models.user.findOne({
-        attributes: ["id"],
-        where: {
-          email: req.body.payload.email,
-        },
-      });
-      myId = myId.dataValues.id;
+      let myId = req.body.payload.user_id
   
 
       let chatIdList = await models.chat.findAll({

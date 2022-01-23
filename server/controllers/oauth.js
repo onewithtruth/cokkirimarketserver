@@ -41,7 +41,7 @@ module.exports = {
       }
     
       let githubUserdataResponse = await axios(userInfoOptions);
-      let { login, email } = githubUserdataResponse.data
+      let { email } = githubUserdataResponse.data
     
       const existingUser = await user.findOne({
         where: {
@@ -53,7 +53,6 @@ module.exports = {
         const payload = {
           id: user.dataValues.id,
           email: user.dataValues.email,
-          nickname: user.dataValues.nickname,
           createdAt: user.dataValues.createdAt,
           updatedAt: user.dataValues.updatedAt
         }
@@ -138,7 +137,7 @@ module.exports = {
       
       let googleDataResponse = await axios(userInfoOptions);
       // console.log(googleDataResponse.data)
-      let { name, email} = googleDataResponse.data
+      let { email} = googleDataResponse.data
     
       const existingUser = await user.findOne({
         where: {
@@ -150,7 +149,6 @@ module.exports = {
         const payload = {
           id: user.dataValues.id,
           email: user.dataValues.email,
-          nickname: user.dataValues.nickname,
           createdAt: user.dataValues.createdAt,
           updatedAt: user.dataValues.updatedAt
         }
@@ -241,7 +239,6 @@ module.exports = {
         const payload = {
           id: user.dataValues.id,
           email: user.dataValues.email,
-          nickname: user.dataValues.nickname,
           createdAt: user.dataValues.createdAt,
           updatedAt: user.dataValues.updatedAt
         }
