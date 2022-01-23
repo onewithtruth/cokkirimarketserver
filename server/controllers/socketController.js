@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 
 module.exports = {
   get: async (req, res) => {
-    console.log(req.body)
+    console.log(req.query)
     res.status(200).send({message: "ok"});
     // if (req.body.payload.user_id) {
 
