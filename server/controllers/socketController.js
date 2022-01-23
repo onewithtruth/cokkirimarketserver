@@ -4,6 +4,7 @@ const { Op } = require("sequelize");
 module.exports = {
   get: async (req, res) => {
     console.log(req.body) 
+    
     // if (req.body.payload.email) {
 
     //   let myId = await models.user.findOne({
