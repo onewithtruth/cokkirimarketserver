@@ -32,18 +32,19 @@ module.exports = {
     },
     
     post: async (req, res) => {
-        const { title, contents, price, image_src, category } = req.body
+        const { title, contents, price, image_src, categories } = req.body
         //console.log(image_src) 개발용
 
         if(title && contents && price && image_src && categories) {
 
-            const findCategory = await models.categories.findOne({
+            const category = await models.categories.findOne({
                 where: {
-                    id: category,
+                    id: categories,
+
                 }
             })
 
-            if(!findCategory) {
+            if(!category) {
                 return res.status(500).json({ message: '존재하지 않는 카테고리입니다.' })
             } else {
                 const postData = {
@@ -61,12 +62,16 @@ module.exports = {
     
                 const categoryData = {
                     post_id: newPostId,
-                    categories_id: findCategory.id
+                    categories_id: category.id
                 }
     
-                const MappingCategory = await models.post_has_categories.create(categoryData)
+                const categoryMapping = await models.post_has_categories.create(categoryData)
+    
+                console.log(categoryMapping)
+    
                 
-                if(newPost && category && MappingCategory) {
+                
+                if(newPost && category && categoryMapping) {
                     res.status(201).json({ message: '게시물 업로드 성공' })
                 } else {
                     res.statue(500).json({ message: '데이터베이스 서버 오류 혹은 입력한 값이 잘못되었습니다.' })
@@ -117,15 +122,15 @@ module.exports = {
     },
 
     delete: async (req, res) => {
-        const id = req.query.id
+        const { post_Id } = req.body
 
-        if(id) {
-            const userIdFromPost = await (await models.post.findOne({ where: {id: id} })).dataValues.user_id
+        if(post_Id) {
+            const userIdFromPost = await (await models.post.findOne({ where: {id: post_Id} })).dataValues.user_id
             if(userIdFromPost === req.userInfo.id) {
         
                 const deletedPost = await models.post.destroy(patchData, {
                     where: {
-                        id: id
+                        id: post_Id
                     }
                 })
 
