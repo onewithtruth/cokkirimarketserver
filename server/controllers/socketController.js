@@ -1,33 +1,43 @@
-const models = require("../models/index");
+const models = require("../models");
 const axios = require("axios");
-const { Op } = require("sequelize");
+
 
 module.exports = {
-  post: async (req, res) => {
-    // console.log(req.body)
+    get: (req, res) => {
+        console.log(req.body.payload)
+        res.status(200).send('GET: /post')
+    },
     
-    if(req.body.payload){
-      let postLists;
-      let categoryLists;
+    post: async (req, res) => {
+        // console.log(req.body.payload)
 
-      if (req.body.payload.category_id === 0) {
-               
-        postLists = await models.post.findAll({
+        let myId = req.body.payload.user_id
+        // console.log(myId)
+
+        let postAuthorId = await models.post.findOne({
+          attributes: ['user_id'],
           where: {
-            title: {
-              [Op.like]: '%' + req.body.payload.query + '%'
-            }
+            "id": req.body.payload.post_id
           }
+        });
+        postAuthorId = postAuthorId.dataValues.user_id
+        // console.log(postAuthorId)
+
+        let chatIdList = await models.post_has_chat.findAll({
+          where: {
+            "post_id": req.body.payload.post_id
+          }
+        });
+        
+        chatIdList = chatIdList.map((elem) => {
+          return elem.dataValues.chat_id
         })
 
-        res.status(201).send({data: postLists, message: "ok"})
+        console.log(chatIdList)
+        res.status(200).send('POST: /post')
+    },
 
-      } 
-
-    } else {
-        res.status(500).json({ message: '기타 오류' })
-    }
-  }
-  
-  
+    my: (req, res) => {
+        res.status(200).send('POST: /my')
+    },
 };

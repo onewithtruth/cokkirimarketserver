@@ -12,8 +12,8 @@ module.exports = (io) => {
     });
   
     socket.on("send_message", async (data) => {
-      socket.to(data.room).emit("receive_message", data);
       console.log(data)
+      socket.to(data.room).emit("receive_message", data);
 
       await models.chat.create({
         "user_id": 1,

@@ -6,6 +6,8 @@ const chatRouter = require('./chat')
 const imageRouter = require('./image')
 const oauthRouter = require('./oauth')
 const searchRouter = require('./search')
+const socketController = require('../controllers/socketController')
+
 const fs = require('fs')
 const path = require('path')
 
@@ -26,6 +28,7 @@ router.use('/image', imageRouter);
 router.use('/oauth', oauthRouter);
 router.use('/search',searchRouter);
 router.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerRouter, swaggerPageOptions));
+router.post('/socket', socketController.post)
 
 
 router.get('/public/*', async (req, res) => {

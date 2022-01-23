@@ -15,9 +15,8 @@ module.exports = {
       categoryLists = categoryLists.map((elem) => {
         return elem.dataValues
       })
-      
-      // console.log(categoryLists)
 
+      // console.log(categoryLists)
       res.status(201).send({ data: categoryLists, message: "ok"})
 
     } else {
