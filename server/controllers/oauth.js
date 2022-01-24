@@ -92,8 +92,7 @@ module.exports = {
 
       if (!existingUser) {
         const newUser = await marketApp_user.create({
-          "email": email,
-          "nickname": login
+          "email": email
         });
         // console.log("newUser's Data:", newUser.dataValues);
         tokenMaker(newUser)
