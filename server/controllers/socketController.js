@@ -88,20 +88,20 @@ module.exports = {
         let uniqueUserIdList = [...setUserIdList]
         
         //나와 연관된 채팅을 쓴 채팅 리스트 를 구한다.
-        let chatListInfoTest =  await models.chat.findAll({
-          include: [
-              { model: models.post_has_chat, as: "post_id", attributes: ["id"]}
-            ],
-          where: {
-            post_id: {
-              [Op.or]: uniquePostIdList
-            },
-          },
-        })
-        console.log(chatListInfoTest)
-        chatListInfoTest = chatListInfoTest.map(function(elem){
-            return {chat_id: elem.dataValues.id, user_id: elem.dataValues.user_id};
-          });
+        // let chatListInfoTest =  await models.chat.findAll({
+        //   include: [
+        //       { model: models.post_has_chat, as: "post_id", attributes: ["id"]}
+        //     ],
+        //   where: {
+        //     post_id: {
+        //       [Op.or]: uniquePostIdList
+        //     },
+        //   },
+        // })
+        // console.log(chatListInfoTest)
+        // chatListInfoTest = chatListInfoTest.map(function(elem){
+        //     return {chat_id: elem.dataValues.id, user_id: elem.dataValues.user_id};
+        //   });
 
 
   
