@@ -26,12 +26,9 @@ module.exports = {
       res.status(400).send({ message: '잘못된 요청입니다.' })
     });
     // console.log(githubResponse.data.error === "bad_verification_code");
-    if (githubResponse.data.error === "bad_verification_code") {
-      res.status(400).send({ message: '잘못된 요청입니다.' })
-      
-    } else {
+    if (githubResponse.data.access_token) {
       let githubAccessToken = githubResponse.data.access_token;
-      // console.log(githubAccessToken);
+      console.log(githubAccessToken);
       const userInfoOptions = {
         method: "GET",
         url: 'https://api.github.com/user',
@@ -39,7 +36,7 @@ module.exports = {
           authorization: `token ${githubAccessToken}`,
         }
       }
-    
+      
       let githubUserdataResponse = await axios(userInfoOptions);
       let { email } = githubUserdataResponse.data
     
