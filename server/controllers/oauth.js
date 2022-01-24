@@ -27,11 +27,10 @@ module.exports = {
     });
     // console.log(githubResponse.data.error === "bad_verification_code");
     if (githubResponse.data.error === "bad_verification_code") {
-      res.status(400).send({ message: '잘못된 요청입니다.' })
-      
+      res.status(203).send({ message: 'code from other source' })
     } else {
       let githubAccessToken = githubResponse.data.access_token;
-      // console.log(githubAccessToken);
+      console.log(githubAccessToken);
       const userInfoOptions = {
         method: "GET",
         url: 'https://api.github.com/user',
@@ -39,9 +38,9 @@ module.exports = {
           authorization: `token ${githubAccessToken}`,
         }
       }
-    
+      
       let githubUserdataResponse = await axios(userInfoOptions);
-      let { login, email } = githubUserdataResponse.data
+      let { email } = githubUserdataResponse.data
     
       const existingUser = await user.findOne({
         where: {
@@ -53,13 +52,12 @@ module.exports = {
         const payload = {
           id: user.dataValues.id,
           email: user.dataValues.email,
-          nickname: user.dataValues.nickname,
           createdAt: user.dataValues.createdAt,
           updatedAt: user.dataValues.updatedAt
         }
         const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
         const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
-        const newResponse = {accessToken: accessToken, email: user.dataValues.email };
+        const newResponse = {accessToken: accessToken, email: user.dataValues.email};
         // console.log(refreshToken)
         res.status(201).cookie("refreshToken", refreshToken, {
           domain: "localhost",
@@ -95,9 +93,14 @@ module.exports = {
       }
 
       if (!existingUser) {
-        const newUser = await marketApp_user.create({
+        function getNickname(str) {
+          let aIndex = str.indexOf("@");
+          return str.slice(0, aIndex);
+        }
+        let nickname = getNickname(email)
+        const newUser = await user.create({
           "email": email,
-          "nickname": login
+          "nickname": nickname
         });
         // console.log("newUser's Data:", newUser.dataValues);
         tokenMaker(newUser)
@@ -125,7 +128,7 @@ module.exports = {
 
     if (googleResponse === undefined) {
 
-      return null;
+      res.status(203).send({ message: 'code from other source' });
 
     } else {
 
@@ -138,7 +141,7 @@ module.exports = {
       
       let googleDataResponse = await axios(userInfoOptions);
       // console.log(googleDataResponse.data)
-      let { name, email} = googleDataResponse.data
+      let { email} = googleDataResponse.data
     
       const existingUser = await user.findOne({
         where: {
@@ -150,7 +153,6 @@ module.exports = {
         const payload = {
           id: user.dataValues.id,
           email: user.dataValues.email,
-          nickname: user.dataValues.nickname,
           createdAt: user.dataValues.createdAt,
           updatedAt: user.dataValues.updatedAt
         }
@@ -190,8 +192,14 @@ module.exports = {
       }
 
       if (!existingUser) {
+        function getNickname(str) {
+          let aIndex = str.indexOf("@");
+          return str.slice(0, aIndex);
+        }
+        let nickname = getNickname(email)
         const newUser = await user.create({
-          "email": email
+          "email": email,
+          "nickname": nickname
         });
         // console.log("newUser's Data:", newUser.dataValues);
         tokenMaker(newUser)
@@ -213,7 +221,11 @@ module.exports = {
       res.status(400).send({ message: '잘못된 요청입니다.' })
     });
 
-    if (kakaoResponse){
+    if (kakaoResponse === undefined){
+
+      res.status(203).send({ message: 'code from other source' })
+
+    } else {
       const kakaoAccessToken = kakaoResponse.data.access_token;
       const userInfoOptions = {
         method: "GET",
@@ -239,7 +251,6 @@ module.exports = {
         const payload = {
           id: user.dataValues.id,
           email: user.dataValues.email,
-          nickname: user.dataValues.nickname,
           createdAt: user.dataValues.createdAt,
           updatedAt: user.dataValues.updatedAt
         }
@@ -255,7 +266,7 @@ module.exports = {
           sameSite: "none"
         })
         .send({data: newResponse, message: "ok" });
-        
+
         const existingRefreshToken = await refreshtoken.findOne({
           where: {
             "user_id": user.dataValues.id
@@ -281,8 +292,14 @@ module.exports = {
       }
       
       if (!existingUser) {
+        function getNickname(str) {
+          let aIndex = str.indexOf("@");
+          return str.slice(0, aIndex);
+        }
+        let nickname = getNickname(email)
         const newUser = await user.create({
-          "email": email
+          "email": email,
+          "nickname": nickname
         });
         // console.log("newUser's Data:", newUser.dataValues);
         tokenMaker(newUser)

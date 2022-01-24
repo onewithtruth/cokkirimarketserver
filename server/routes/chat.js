@@ -195,6 +195,7 @@ const controller = require('../controllers/chat')
  */
 
 router.get('/', controller.get);
+router.get('/', controller.post);
 //router.post('/login', controller.login);
 
 

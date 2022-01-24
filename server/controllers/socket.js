@@ -8,17 +8,34 @@ module.exports = (io) => {
   
     socket.on("join_room", (data) => {
       socket.join(data);
-      console.log(`아이디: ${socket.id} 님이 ${data} 번 채팅방에 입장 하였습니다`);
+      console.log(`아이디: ${socket.id} 님이 post_id:${data} 채팅방에 입장 하였습니다`);
     });
   
     socket.on("send_message", async (data) => {
+      // console.log(data)
       socket.to(data.room).emit("receive_message", data);
-      console.log(data)
 
-      await models.chat.create({
-        "user_id": 1,
+      let textAuthorId = await models.user.findOne({
+        attributes: ["id"],
+        where: {
+          nickname: data.author,
+        },
+      });
+  
+      textAuthorId = textAuthorId.dataValues.id;
+      // console.log(textAuthorId)
+
+      let newChatData = await models.chat.create({
+        "user_id": textAuthorId,
         "text": data.message
       })
+      // console.log(newChatData.dataValues.id);
+
+      await models.post_has_chat.create({
+        "post_id": data.room,
+        "chat_id": newChatData.dataValues.id
+      })
+
     });
   
     socket.on("disconnect", () => {
