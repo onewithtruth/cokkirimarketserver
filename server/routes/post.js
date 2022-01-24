@@ -198,6 +198,10 @@ const { authentication } = require('../controllers/authentication')
  *       type: string
  *       description: AccessToken
  *       example: bearer 23f43u9if13ekc23fm30jg549quneraf2fmsdf
+ *     - in: query
+ *       name: id
+ *       type: integer
+ *       description: 수정할 게시물의 아이디
  *     requestBody:
  *       required: false
  *       content:
