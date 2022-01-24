@@ -46,7 +46,8 @@ if (fs.existsSync('./cokkirimarket2.key.pem') && fs.existsSync('./cokkirimarket2
 // socket io server
 const io = require('socket.io')(server, {
   cors: {
-    origin: "*",
+    origin: ['https://localhost:3000', 'https://local.cokkirimarket.xyz:3000',
+    'http://localhost:3000', 'https://cokkirimarket.xyz'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
   }
