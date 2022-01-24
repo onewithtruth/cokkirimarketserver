@@ -159,8 +159,6 @@ module.exports = {
         const newResponse = {accessToken: accessToken, email: user.dataValues.email};
         // console.log(refreshToken)
         res.status(201).cookie("refreshToken", refreshToken, {
-          domain: "localhost",
-          path: "/",
           httpOnly: true,
           secure: true,
           sameSite: "none"
