@@ -27,7 +27,7 @@ module.exports = {
     });
     // console.log(githubResponse.data.error === "bad_verification_code");
     if (githubResponse.data.error === "bad_verification_code") {
-      res.status(203).send({ message: 'code from other source' })
+      res.status(200).send({ message: 'code from other source' })
     } else {
       let githubAccessToken = githubResponse.data.access_token;
       console.log(githubAccessToken);
@@ -93,8 +93,14 @@ module.exports = {
       }
 
       if (!existingUser) {
+        function getNickname(str) {
+          let aIndex = str.indexOf("@");
+          return str.slice(0, aIndex);
+        }
+        let nickname = getNickname(email)
         const newUser = await user.create({
-          "email": email
+          "email": email,
+          "nickname": nickname
         });
         // console.log("newUser's Data:", newUser.dataValues);
         tokenMaker(newUser)
@@ -122,7 +128,7 @@ module.exports = {
 
     if (googleResponse === undefined) {
 
-      res.status(203).send({ message: 'code from other source' });
+      res.status(200).send({ message: 'code from other source' });
 
     } else {
 
@@ -188,8 +194,14 @@ module.exports = {
       }
 
       if (!existingUser) {
+        function getNickname(str) {
+          let aIndex = str.indexOf("@");
+          return str.slice(0, aIndex);
+        }
+        let nickname = getNickname(email)
         const newUser = await user.create({
-          "email": email
+          "email": email,
+          "nickname": nickname
         });
         // console.log("newUser's Data:", newUser.dataValues);
         tokenMaker(newUser)
@@ -213,8 +225,8 @@ module.exports = {
 
     if (kakaoResponse === undefined){
 
-      res.status(203).send({ message: 'code from other source' })
-      
+      res.status(200).send({ message: 'code from other source' })
+
     } else {
       const kakaoAccessToken = kakaoResponse.data.access_token;
       const userInfoOptions = {
@@ -282,8 +294,14 @@ module.exports = {
       }
       
       if (!existingUser) {
+        function getNickname(str) {
+          let aIndex = str.indexOf("@");
+          return str.slice(0, aIndex);
+        }
+        let nickname = getNickname(email)
         const newUser = await user.create({
-          "email": email
+          "email": email,
+          "nickname": nickname
         });
         // console.log("newUser's Data:", newUser.dataValues);
         tokenMaker(newUser)
