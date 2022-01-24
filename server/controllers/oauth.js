@@ -26,7 +26,9 @@ module.exports = {
       res.status(400).send({ message: '잘못된 요청입니다.' })
     });
     // console.log(githubResponse.data.error === "bad_verification_code");
-    if (githubResponse.data.access_token) {
+    if (githubResponse.data.error === "bad_verification_code") {
+      res.status(400).send({ message: '잘못된 요청입니다.' })
+    } else {
       let githubAccessToken = githubResponse.data.access_token;
       console.log(githubAccessToken);
       const userInfoOptions = {
