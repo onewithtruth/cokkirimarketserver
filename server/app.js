@@ -32,7 +32,7 @@ app.set('etag', false);
 
 let server;
 
-if (fs.existsSync('./cokkirimarket.key.pem') && fs.existsSync('./cokkirimarket.crt.pem')) {
+if (fs.existsSync('./cokkirimarket2.key.pem') && fs.existsSync('./cokkirimarket2.crt.pem')) {
   const privateKey = fs.readFileSync(__dirname + '/cokkirimarket.key.pem', 'utf8');
   const certificate = fs.readFileSync(__dirname + '/cokkirimarket.crt.pem', 'utf8');
   const credentials = { key: privateKey, cert: certificate };
