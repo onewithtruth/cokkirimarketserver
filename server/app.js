@@ -9,8 +9,19 @@ const cookieParser = require("cookie-parser")
 const indexRouter = require('./routes/');
 const socket = require('./controllers/socket');
 
+//서버 메시지 로깅
+const morgan = require('morgan')
+const log = require('./controllers/logger.js')
+const path = require('path')
+
 const app = express()
 // 위와 같이 express와 app을 변수로 사용한다.
+
+// 로거 생성
+const accessLogStream = fs.createWriteStream(path.join(__dirname, '/logs/access.log'), { flags: 'a' })
+const serverlog = morgan('combined', { stream: accessLogStream });
+
+app.use(serverlog);
 
 let corsOptions = {
   origin: ['https://localhost:3000', 'https://local.cokkirimarket.xyz:3000',
@@ -53,5 +64,7 @@ const io = require('socket.io')(server, {
   }
 });
 socket(io)
+
+log(io)
 
 module.exports = server;
