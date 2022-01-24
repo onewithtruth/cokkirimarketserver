@@ -27,7 +27,7 @@ module.exports = {
     });
     // console.log(githubResponse.data.error === "bad_verification_code");
     if (githubResponse.data.error === "bad_verification_code") {
-      res.status(400).send({ message: '잘못된 요청입니다.' })
+      res.status(203).send({ message: 'code from other source' })
     } else {
       let githubAccessToken = githubResponse.data.access_token;
       console.log(githubAccessToken);
@@ -122,7 +122,7 @@ module.exports = {
 
     if (googleResponse === undefined) {
 
-      return null;
+      res.status(203).send({ message: 'code from other source' });
 
     } else {
 
@@ -211,7 +211,11 @@ module.exports = {
       res.status(400).send({ message: '잘못된 요청입니다.' })
     });
 
-    if (kakaoResponse){
+    if (kakaoResponse === undefined){
+
+      res.status(203).send({ message: 'code from other source' })
+      
+    } else {
       const kakaoAccessToken = kakaoResponse.data.access_token;
       const userInfoOptions = {
         method: "GET",
