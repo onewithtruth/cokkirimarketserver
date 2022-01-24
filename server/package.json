@@ -20,6 +20,8 @@
     "https": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "latest": "^0.2.0",
+    "line-reader": "^0.4.0",
+    "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15",
     "patch-package": "^6.4.7",

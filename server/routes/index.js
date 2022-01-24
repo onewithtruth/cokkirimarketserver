@@ -42,6 +42,18 @@ router.get('/public/*', async (req, res) => {
   })
 })
 
+router.use(express.static(path.join(__dirname, "../build")));
+
+
+router.get('/log/*', async (req, res) => {
+  fs.access(path.join(__dirname, '../', req.path), fs.constants.R_OK, (err) => {
+    if (err) {
+      console.log(err)
+    }
+    res.status(200).sendFile(path.join(__dirname, '../', req.path))
+  })
+})
+
 router.get('/', function (req, res, next) {
   res.send('Hello CokkiriMarket');
 });
