@@ -46,7 +46,16 @@ module.exports = {
 
       if (uniqueTotalChatIdList[0] === undefined) {
 
-        res.status(200).send({data: [], message: "empty chat list"});
+        let myNickname = await models.user.findOne({
+          attributes: ["nickname"],
+          where: {
+            id: myId
+          }
+        });
+
+        myNickname = myNickname.dataValues.nickname
+        
+        res.status(200).send({data: {chatListInfo, myNickname}, message: "empty chat list"});
         
       } else {
         //전체 체팅과 연관된 포스트 목록을 구한다
@@ -79,20 +88,20 @@ module.exports = {
         let uniqueUserIdList = [...setUserIdList]
         
         //나와 연관된 채팅을 쓴 포스트 리스트 를 구한다.
-        // let chatListInfo =  await models.post.findAll({
-          // include: [
-          //     { model: models.post_has_chat, as: "chat_id", attributes: ["chat_id"]}
-          //   ],
+        // let chatListInfoTest =  await models.post.findAll({
+        //   include: [
+        //       { model: models.post_has_chat, as: "chat_id", attributes: ["chat_id"]}
+        //     ],
         //   where: {
         //     id: {
         //       [Op.or]: uniquePostIdList
         //     },
         //   },
         // })
-        // console.log(chatListInfo)
-        // chatUserIdList = chatUserIdList.map(function(elem){
-          //   return {chat_id: elem.dataValues.id, user_id: elem.dataValues.user_id};
-          // });
+        // console.log(chatListInfoTest)
+        // chatListInfoTest = chatListInfoTest.map(function(elem){
+        //     return {chat_id: elem.dataValues.id, user_id: elem.dataValues.user_id};
+        //   });
 
 
   

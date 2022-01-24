@@ -22,7 +22,7 @@ module.exports = (io) => {
         },
       });
   
-      textAuthorId = textAuthorId.dataValues.id;
+      // textAuthorId = textAuthorId.dataValues.id;
       // console.log(textAuthorId)
 
       let newChatData = await models.chat.create({

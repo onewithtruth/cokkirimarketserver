@@ -27,7 +27,7 @@ module.exports = {
     });
     // console.log(githubResponse.data.error === "bad_verification_code");
     if (githubResponse.data.error === "bad_verification_code") {
-      res.status(200).send({ message: 'code from other source' })
+      res.status(203).send({ message: 'code from other source' })
     } else {
       let githubAccessToken = githubResponse.data.access_token;
       console.log(githubAccessToken);
@@ -128,7 +128,7 @@ module.exports = {
 
     if (googleResponse === undefined) {
 
-      res.status(200).send({ message: 'code from other source' });
+      res.status(203).send({ message: 'code from other source' });
 
     } else {
 
@@ -225,7 +225,7 @@ module.exports = {
 
     if (kakaoResponse === undefined){
 
-      res.status(200).send({ message: 'code from other source' })
+      res.status(203).send({ message: 'code from other source' })
 
     } else {
       const kakaoAccessToken = kakaoResponse.data.access_token;
