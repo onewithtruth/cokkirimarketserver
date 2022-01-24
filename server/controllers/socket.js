@@ -8,7 +8,7 @@ module.exports = (io) => {
   
     socket.on("join_room", (data) => {
       socket.join(data);
-      console.log(`아이디: ${socket.id} 님이 ${data} 번 채팅방에 입장 하였습니다`);
+      console.log(`아이디: ${socket.id} 님이 post_id:${data} 채팅방에 입장 하였습니다`);
     });
   
     socket.on("send_message", async (data) => {
@@ -18,7 +18,7 @@ module.exports = (io) => {
       let textAuthorId = await models.user.findOne({
         attributes: ["id"],
         where: {
-          email: data.author,
+          nickname: data.author,
         },
       });
   
