@@ -126,7 +126,7 @@ module.exports = {
 
         keysArr.forEach((elements) => {
             if(userInfoFromAccessToken[elements] !== userInfoFromRefreshToken[elements]) {
-                return res.status(401).json({ message: '인증 정보가 만료되었습니다.' })
+                //return res.status(401).json({ message: '인증 정보가 만료되었습니다.' })
             }
         })
         const deletedUser = await models.user.destroy({
