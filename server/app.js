@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require('express')
 const cors = require('cors');
-const PORT = 80
+const PORT = 8000
 const fs = require('fs');
 const https = require('https');
 const cookieParser = require("cookie-parser")
@@ -32,9 +32,9 @@ app.set('etag', false);
 
 let server;
 
-if (fs.existsSync('./key.pem') && fs.existsSync('./cert.pem')) {
-  const privateKey = fs.readFileSync(__dirname + '/key.pem', 'utf8');
-  const certificate = fs.readFileSync(__dirname + '/cert.pem', 'utf8');
+if (fs.existsSync('./cokkirimarket.key.pem') && fs.existsSync('./cokkirimarket.crt.pem')) {
+  const privateKey = fs.readFileSync(__dirname + '/cokkirimarket.key.pem', 'utf8');
+  const certificate = fs.readFileSync(__dirname + '/cokkirimarket.crt.pem', 'utf8');
   const credentials = { key: privateKey, cert: certificate };
 
   server = https.createServer(credentials, app);
