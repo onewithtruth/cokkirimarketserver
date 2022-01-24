@@ -13,10 +13,11 @@ const app = express()
 // 위와 같이 express와 app을 변수로 사용한다.
 
 let corsOptions = {
-    origin: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    exposedHeaders: ['Content-Type'],
-    credentials: true
+  origin: ['https://localhost:3000/', 'https://local.cokkirimarket.xyz:3000/',
+    'http://localhost:3000/', 'https://cokkirimarket.xyz/'], 
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Content-Type'],
+  credentials: true
 }
 
 app.use(cors(corsOptions));
