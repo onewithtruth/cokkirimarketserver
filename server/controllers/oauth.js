@@ -55,7 +55,7 @@ module.exports = {
         }
         const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
         const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
-        const newResponse = {accessToken: accessToken, email: user.dataValues.email };
+        const newResponse = {accessToken: accessToken, email: user.dataValues.email};
         // console.log(refreshToken)
         res.status(201).cookie("refreshToken", refreshToken, {
           domain: "localhost",
@@ -91,7 +91,7 @@ module.exports = {
       }
 
       if (!existingUser) {
-        const newUser = await marketApp_user.create({
+        const newUser = await user.create({
           "email": email
         });
         // console.log("newUser's Data:", newUser.dataValues);
@@ -250,7 +250,7 @@ module.exports = {
           sameSite: "none"
         })
         .send({data: newResponse, message: "ok" });
-        
+
         const existingRefreshToken = await refreshtoken.findOne({
           where: {
             "user_id": user.dataValues.id
