@@ -1,5 +1,7 @@
 const models = require("../models");
 const { Op } = require("sequelize");
+const post = require("../models/post");
+const post_has_chat = require("../models/post_has_chat");
 
 module.exports = {
   chatroomlist: async (req, res) => {
@@ -86,38 +88,44 @@ module.exports = {
         })
         let setUserIdList = new Set(userIdList);
         let uniqueUserIdList = [...setUserIdList]
+        // console.log(uniqueUserIdList)
         
         //나와 연관된 채팅을 쓴 채팅 리스트 를 구한다.
-        // let chatListInfoTest =  await models.chat.findAll({
-        //   include: [
-        //       { model: models.post_has_chat, as: "post_id", attributes: ["id"]}
-        //     ],
-        //   where: {
-        //     post_id: {
-        //       [Op.or]: uniquePostIdList
-        //     },
-        //   },
-        // })
-        // console.log(chatListInfoTest)
-        // chatListInfoTest = chatListInfoTest.map(function(elem){
-        //     return {chat_id: elem.dataValues.id, user_id: elem.dataValues.user_id};
-        //   });
+        let chatListInfoRaw =  await models.chat.findAll({
+          include: [{model: models.post, as: "post_id_post_post_has_chats"}],
+          where: {
+            user_id: { 
+              [Op.or]: uniqueUserIdList
+            },
+          },
+        })
+        console.log(chatListInfoRaw[0].dataValues.user_id)
+        let chatListInfoOutput = [];
+        let chatListInfoOutputChecker = [];
+        // console.log(chatListInfoOutput.includes(chatListInfoRaw[0].dataValues.user_id === true))
+        for (let i = 0; i < chatListInfoRaw.length; i++) {
+          if (!chatListInfoOutputChecker.includes(chatListInfoRaw[i].dataValues.user_id)) {
+            chatListInfoOutputChecker.push(chatListInfoRaw[i].dataValues.user_id);
+            chatListInfoOutput.push(chatListInfoRaw[i]);
+          }
+        }
+        // console.log(chatListInfoOutput.length)
 
 
   
-        let chatListInfo = await models.post.findAll({
-          include: [
-            { model: models.post_has_categories,
-              include: { model: models.categories, as: "category", attributes: ["category"] },
-              as: "post_has_categories", attributes: ["categories_id"] },
-              { model: models.user, as: "user", attributes: ["nickname"] },
-          ],
-          where: {
-            id: {
-              [Op.or]: uniquePostIdList
-            }
-          }
-        })
+        // let chatListInfo = await models.post.findAll({
+        //   include: [
+        //     { model: models.post_has_categories,
+        //       include: { model: models.categories, as: "category", attributes: ["category"] },
+        //       as: "post_has_categories", attributes: ["categories_id"] },
+        //       { model: models.user, as: "user", attributes: ["nickname"] },
+        //   ],
+        //   where: {
+        //     id: {
+        //       [Op.or]: uniquePostIdList
+        //     }
+        //   }
+        // })
 
         let myNickname = await models.user.findOne({
           attributes: ["nickname"],
@@ -129,7 +137,7 @@ module.exports = {
         myNickname = myNickname.dataValues.nickname
         
     
-        res.status(200).send({data: {chatListInfo, myNickname}, message: "ok"});
+        res.status(200).send({data: {chatListInfoOutput, myNickname}, message: "ok"});
 
       }
 

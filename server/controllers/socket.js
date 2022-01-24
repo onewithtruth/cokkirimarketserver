@@ -27,7 +27,8 @@ module.exports = (io) => {
 
       let newChatData = await models.chat.create({
         "user_id": textAuthorId,
-        "text": data.message
+        "text": data.message,
+        "room": data.room
       })
       // console.log(newChatData.dataValues.id);
 
