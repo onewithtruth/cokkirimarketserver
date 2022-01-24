@@ -54,7 +54,7 @@ module.exports = {
         });
 
         myNickname = myNickname.dataValues.nickname
-        
+        let chatListInfo = []
         res.status(200).send({data: {chatListInfo, myNickname}, message: "empty chat list"});
         
       } else {
