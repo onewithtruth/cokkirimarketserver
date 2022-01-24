@@ -22,16 +22,12 @@ function initModels(sequelize) {
 
   categories.belongsToMany(post, { as: 'post_id_posts', through: post_has_categories, foreignKey: "categories_id", otherKey: "post_id" });
   chat.belongsToMany(post, { as: 'post_id_post_post_has_chats', through: post_has_chat, foreignKey: "chat_id", otherKey: "post_id" });
-  hashtags.belongsToMany(post, { as: 'post_id_post_post_has_hashtags', through: post_has_hashtags, foreignKey: "hashtags_id", otherKey: "post_id" });
   post.belongsToMany(categories, { as: 'categories_id_categories', through: post_has_categories, foreignKey: "post_id", otherKey: "categories_id" });
   post.belongsToMany(chat, { as: 'chat_id_chats', through: post_has_chat, foreignKey: "post_id", otherKey: "chat_id" });
-  post.belongsToMany(hashtags, { as: 'hashtags_id_hashtags', through: post_has_hashtags, foreignKey: "post_id", otherKey: "hashtags_id" });
   post_has_categories.belongsTo(categories, { as: "category", foreignKey: "categories_id"});
   categories.hasMany(post_has_categories, { as: "post_has_categories", foreignKey: "categories_id"});
   post_has_chat.belongsTo(chat, { as: "chat", foreignKey: "chat_id"});
   chat.hasMany(post_has_chat, { as: "post_has_chats", foreignKey: "chat_id"});
-  post_has_hashtags.belongsTo(hashtags, { as: "hashtag", foreignKey: "hashtags_id"});
-  hashtags.hasMany(post_has_hashtags, { as: "post_has_hashtags", foreignKey: "hashtags_id"});
   post_has_categories.belongsTo(post, { as: "post", foreignKey: "post_id"});
   post.hasMany(post_has_categories, { as: "post_has_categories", foreignKey: "post_id"});
   post_has_chat.belongsTo(post, { as: "post", foreignKey: "post_id"});

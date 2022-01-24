@@ -13,11 +13,7 @@ module.exports = function(sequelize, DataTypes) {
     hashtags_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'hashtags',
-        key: 'id'
-      }
+      primaryKey: true
     }
   }, {
     sequelize,

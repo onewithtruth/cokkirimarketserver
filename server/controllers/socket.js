@@ -8,7 +8,7 @@ module.exports = (io) => {
   
     socket.on("join_room", (data) => {
       socket.join(data);
-      console.log(`아이디: ${socket.id} 님이 post_id:${data} 채팅방에 입장 하였습니다`);
+      console.log(`아이디: ${socket.id} 님이 room:${data} 채팅방에 입장 하였습니다`);
     });
   
     socket.on("send_message", async (data) => {
@@ -27,12 +27,20 @@ module.exports = (io) => {
 
       let newChatData = await models.chat.create({
         "user_id": textAuthorId,
-        "text": data.message
+        "text": data.message,
+        "room": data.room
       })
       // console.log(newChatData.dataValues.id);
+      console.log(data.room)
+      
+      function getPostid(room) {
+        let sharpIndex = room.indexOf("#");
+        return room.slice(0, sharpIndex);
+      };
+      let postId = getPostid(data.room)
 
       await models.post_has_chat.create({
-        "post_id": data.room,
+        "post_id": postId,
         "chat_id": newChatData.dataValues.id
       })
 

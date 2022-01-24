@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(300),
       allowNull: true
     },
+    room: {
+      type: DataTypes.STRING(45),
+      allowNull: true
+    },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

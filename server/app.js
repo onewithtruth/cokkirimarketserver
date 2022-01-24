@@ -32,9 +32,9 @@ app.set('etag', false);
 
 let server;
 
-if (fs.existsSync('./key.pem') && fs.existsSync('./cert.pem')) {
-  const privateKey = fs.readFileSync(__dirname + '/key.pem', 'utf8');
-  const certificate = fs.readFileSync(__dirname + '/cert.pem', 'utf8');
+if (fs.existsSync('./cokkirimarket2.key.pem') && fs.existsSync('./cokkirimarket2.crt.pem')) {
+  const privateKey = fs.readFileSync(__dirname + '/cokkirimarket.key.pem', 'utf8');
+  const certificate = fs.readFileSync(__dirname + '/cokkirimarket.crt.pem', 'utf8');
   const credentials = { key: privateKey, cert: certificate };
 
   server = https.createServer(credentials, app);
@@ -46,7 +46,8 @@ if (fs.existsSync('./key.pem') && fs.existsSync('./cert.pem')) {
 // socket io server
 const io = require('socket.io')(server, {
   cors: {
-    origin: "*",
+    origin: ['https://localhost:3000', 'https://local.cokkirimarket.xyz:3000',
+    'http://localhost:3000', 'https://cokkirimarket.xyz'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
   }
