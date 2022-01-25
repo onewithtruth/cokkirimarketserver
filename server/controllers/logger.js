@@ -19,7 +19,7 @@ module.exports = function log(io) {
         })
         
         socket.on("pm2_log_general", () => {
-          fs.readFile('/ubuntu/.pm2/logs/app-out.log', function(err, data) {
+          fs.readFile('/root/.pm2/logs/app-out.log', function(err, data) {
             if(err) throw err;
             const array = data.toString().split("\n")
             const payload = array.slice(array.length-100)
@@ -31,7 +31,7 @@ module.exports = function log(io) {
         })
 
         socket.on("pm2_log_error", () => {
-          fs.readFile('/ubuntu/.pm2/logs/app-error.log', function(err, data) {
+          fs.readFile('/root/.pm2/logs/app-error.log', function(err, data) {
             if(err) throw err;
             const array = data.toString().split("\n")
             const payload = array.slice(array.length-100)

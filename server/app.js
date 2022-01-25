@@ -28,10 +28,10 @@ const mklogdir = (dir) => {
   }
 }
 try {
-  fs.unlink('/ubuntu/.pm2/logs/app-out.log')
-  fs.unlink('/ubuntu/.pm2/logs/app-error.log')
-  fs.writeFile('/ubuntu/.pm2/logs/app-out.log')
-  fs.writeFile('/ubuntu/.pm2/logs/app-error.log')
+  fs.unlink('/root/.pm2/logs/app-out.log')
+  fs.unlink('/root/.pm2/logs/app-error.log')
+  fs.writeFile('/root/.pm2/logs/app-out.log')
+  fs.writeFile('/root/.pm2/logs/app-error.log')
   console.log('이전 로그 삭제 완료')
 } catch (err) {
   console.log('로그 초기화 실패')
