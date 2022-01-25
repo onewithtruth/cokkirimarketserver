@@ -172,12 +172,8 @@ module.exports = {
         where: {
           room: req.body.payload.room,
         },
-      });
-      // chatList = chatList.map((elem) => {
-        //   return elem.dataValues.id;
-        // });  
-        
-      console.log(chatList)
+      });        
+      // console.log(chatList)
       
 
       let sellerNickname = await models.user.findOne({
