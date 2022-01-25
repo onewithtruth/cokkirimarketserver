@@ -200,6 +200,9 @@ module.exports = {
             elem.dataValues.user_id === buyerId
               ? buyerNickname
               : sellerNickname,
+          user_id: elem.dataValues.user_id === buyerId
+              ? buyerId
+              : sellerId,
           message: elem.dataValues.text,
           time: "",
         };
