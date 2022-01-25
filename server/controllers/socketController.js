@@ -7,7 +7,7 @@ module.exports = {
   chatroomlist: async (req, res) => {
     // console.log(Number(req.body.payload.user_id))
     if (req.body.payload.user_id) {
-
+      
       //나의 아이디
       let myId = Number(req.body.payload.user_id)
       
@@ -18,19 +18,25 @@ module.exports = {
       myPostIdList = myPostIdList.map(function(elem) {
         return elem.dataValues.id
       });
+      // console.log(myPostIdList)
+
 
       //내가 작성한 포스트 아이디 리스트와 연관된 채팅 리스트
-      let chatIdListRelatedmyPost = await models.post_has_chat.findAll({
-        attributes: ["chat_id"],
-        where: {
-          post_id: {
-            [Op.or]: myPostIdList,
+      let chatIdListRelatedmyPost = []
+      if (myPostIdList[0] !== undefined) {
+        chatIdListRelatedmyPost = await models.post_has_chat.findAll({
+          attributes: ["chat_id"],
+          where: {
+            post_id: {
+              [Op.or]: myPostIdList,
+            },
           },
-        },
-      });
-      chatIdListRelatedmyPost = chatIdListRelatedmyPost.map(function(elem) {
-        return elem.dataValues.chat_id
-      });
+        });
+        chatIdListRelatedmyPost = chatIdListRelatedmyPost.map(function(elem) {
+          return elem.dataValues.chat_id
+        });
+      }
+      // console.log(chatIdListRelatedmyPost)
 
       //내가 작성한 모든 채팅아이디 리스트
       let mychatIdList = await models.chat.findAll({
@@ -39,6 +45,9 @@ module.exports = {
       mychatIdList = mychatIdList.map(function (elem) {
         return elem.dataValues.id;
       });
+      // console.log(mychatIdList)
+
+
 
       //두 채팅 아이디 리스트를 merge 한다.
       let totalChatIdList = [...chatIdListRelatedmyPost, ...mychatIdList];
@@ -103,7 +112,7 @@ module.exports = {
             },
           },
         })
-        console.log(chatListInfoRaw[0])
+        // console.log(chatListInfoRaw[0])
         let chatListInfoOutput = [];
         let chatListInfoOutputChecker = [];
         // console.log(chatListInfoOutput.includes(chatListInfoRaw[0].dataValues.user_id === true))
