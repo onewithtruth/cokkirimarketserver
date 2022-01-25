@@ -110,7 +110,7 @@ module.exports = {
     delete: async (req, res) => {
         const userInfoFromAccessToken = req.userInfo
         const userInfoFromRefreshToken = await checkRefeshToken(req)
-        if(userInfoFromRefreshToken){
+        if(!userInfoFromRefreshToken){
             return res.status(500).json({ message: '리프레시 토큰 없음' })
         }
         //console.log('회원 탈퇴 요청, 각 토큰에서 해석한 유저 email은 각각 다음과 같습니다.', req.userInfo.id, userInfoFromRefreshToken.id)
