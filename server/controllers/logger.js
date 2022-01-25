@@ -5,7 +5,7 @@ module.exports = function log(io) {
     io.on("connection", (socket) => {
 
         socket.on("server_log", () => {
-          fs.readFile('./logs/access.log', function(err, data) {
+          fs.readFile('../logs/access.log', function(err, data) {
             if(err) throw err;
             const array = data.toString().split("\n");
             for(i in array) {
