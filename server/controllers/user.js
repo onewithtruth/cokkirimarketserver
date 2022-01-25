@@ -110,7 +110,7 @@ module.exports = {
     delete: async (req, res) => {
         const userInfoFromAccessToken = req.userInfo
         const userInfoFromRefreshToken = await checkRefeshToken(req)
-        console.log('회원 탈퇴 요청, 각 토큰에서 해석한 유저 email은 각각 다음과 같습니다.', req.userInfo.id, userInfoFromRefreshToken.id)
+        //console.log('회원 탈퇴 요청, 각 토큰에서 해석한 유저 email은 각각 다음과 같습니다.', req.userInfo.id, userInfoFromRefreshToken.id)
         console.log('쿠키는', req.cookies)
         const keysArr = Object.keys(userInfoFromRefreshToken)
         
@@ -126,7 +126,7 @@ module.exports = {
 
         keysArr.forEach((elements) => {
             if(userInfoFromAccessToken[elements] !== userInfoFromRefreshToken[elements]) {
-                //return res.status(401).json({ message: '인증 정보가 만료되었습니다.' })
+                return res.status(401).json({ message: '인증 정보가 만료되었습니다.' })
             }
         })
         const deletedUser = await models.user.destroy({
