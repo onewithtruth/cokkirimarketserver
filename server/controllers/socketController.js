@@ -92,14 +92,18 @@ module.exports = {
         
         //나와 연관된 채팅을 쓴 채팅 리스트 를 구한다.
         let chatListInfoRaw =  await models.chat.findAll({
-          include: [{model: models.post, as: "post_id_post_post_has_chats"}],
+          include: [
+            {model: models.post, as: "post_id_post_post_has_chats",
+              include: [{ model: models.user, as: "user", attributes: ["nickname"] }]
+            }
+          ],
           where: {
             user_id: { 
               [Op.or]: uniqueUserIdList
             },
           },
         })
-        console.log(chatListInfoRaw[0].dataValues.user_id)
+        console.log(chatListInfoRaw[0])
         let chatListInfoOutput = [];
         let chatListInfoOutputChecker = [];
         // console.log(chatListInfoOutput.includes(chatListInfoRaw[0].dataValues.user_id === true))
@@ -110,22 +114,6 @@ module.exports = {
           }
         }
         // console.log(chatListInfoOutput.length)
-
-
-  
-        // let chatListInfo = await models.post.findAll({
-        //   include: [
-        //     { model: models.post_has_categories,
-        //       include: { model: models.categories, as: "category", attributes: ["category"] },
-        //       as: "post_has_categories", attributes: ["categories_id"] },
-        //       { model: models.user, as: "user", attributes: ["nickname"] },
-        //   ],
-        //   where: {
-        //     id: {
-        //       [Op.or]: uniquePostIdList
-        //     }
-        //   }
-        // })
 
         let myNickname = await models.user.findOne({
           attributes: ["nickname"],
@@ -151,77 +139,74 @@ module.exports = {
   },
 
   chatroom: async (req, res) => {
-    // console.log(req.body.payload)
-    if (req.body.payload.user_id) {
+    console.log(req.body.payload)
+    if (req.body.payload.room) {
       
-      let postAuthorId = await models.post.findOne({
-        attributes: ["user_id"],
+      function getPostid(room) {
+        let sharpIndex = room.indexOf("#");
+        return room.slice(0, sharpIndex);
+      };
+      function getBuyeremail(room) {
+        let sharpIndex = room.indexOf("#");
+        return room.slice(sharpIndex + 1);
+      };
+
+      let postId = getPostid(req.body.payload.room)
+      let buyerEmail = getBuyeremail(req.body.payload.room)
+
+      let buyerId = await models.user.findOne({
+        attributes: ["id"],
         where: {
-          id: req.body.payload.post_id,
+          "email": buyerEmail,
         },
       });
 
-      postAuthorId = Number(postAuthorId.dataValues.user_id);
-
-      let myId = Number(req.body.payload.user_id);
-
-      if (postAuthorId === myId) {
+      buyerId = Number(buyerId.dataValues.id);
+      
+      let sellerId = Number(req.body.payload.seller_id);
+      
+      
+      
+      
+      let chatList = await models.chat.findAll({
+        where: {
+          room: req.body.payload.room,
+        },
+      });
+      // chatList = chatList.map((elem) => {
+        //   return elem.dataValues.id;
+        // });  
         
-        let buyerId        
+      console.log(chatList)
+      
 
-        res.status(200).send({ data: chatList, message: "ok" });
-      } else {
-        
-        
-        let chatIdList = await models.post_has_chat.findAll({
-          where: {
-            post_id: req.body.payload.post_id,
-          },
-        });
-  
-        chatIdList = chatIdList.map((elem) => {
-          return elem.dataValues.chat_id;
-        });
-  
-        let chatList = await models.chat.findAll({
-          where: {
-            id: {
-              [Op.or]: chatIdList,
-            },
-          },
-        });
-  
-  
-  
-  
-        let postAuthorNickname = await models.user.findOne({
-          attributes: ["nickname"],
-          where: { id: postAuthorId },
-        });
-        postAuthorNickname = postAuthorNickname.dataValues.nickname;
-  
-        let myNickname = await models.user.findOne({
-          attributes: ["nickname"],
-          where: { id: myId },
-        });
-        myNickname = myNickname.dataValues.nickname;
-        // console.log(chatList);
-  
-        chatList = chatList.map(function (elem) {
-          return {
-            room: req.body.payload.post_id,
-            author:
-              elem.dataValues.user_id === postAuthorId
-                ? postAuthorNickname
-                : myNickname,
-            message: elem.dataValues.text,
-            time: "",
-          };
-        });
-        
-        res.status(200).send({ data: chatList, message: "ok" });
-      }
+      let sellerNickname = await models.user.findOne({
+        attributes: ["nickname"],
+        where: { id: sellerId },
+      });
+      sellerNickname = sellerNickname.dataValues.nickname;
 
+      let buyerNickname = await models.user.findOne({
+        attributes: ["nickname"],
+        where: { id: buyerId },
+      });
+      // console.log(sellerNickname);
+      buyerNickname = buyerNickname.dataValues.nickname;
+
+      chatList = chatList.map(function (elem) {
+        return {
+          room: req.body.payload.room,
+          author:
+            elem.dataValues.user_id === buyerId
+              ? buyerNickname
+              : sellerNickname,
+          message: elem.dataValues.text,
+          time: "",
+        };
+      });
+      
+      res.status(200).send({data: chatList, message: "ok" });
+      
     } else {
       res.status(400).send({ message: "잘못된 요청입니다." });
     }

@@ -9,6 +9,9 @@
 /coverage
 
 #cert
+crt.pem
+key.pem
+
 
 # production
 /build
