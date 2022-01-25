@@ -34,11 +34,12 @@ module.exports = {
                 sendRefreshToken(res, refreshToken)
                 res.json({ 
                     accessToken: accessToken,
-                    message: "로그인 성공"
+                    message: "로그인 성공",
+                    userInfo: user.dataValues 
                 });
             } else {
                 //올바르지 않은 유저 정보
-                res.status(400).json({ message: '로그인 정보의 유효성 문제로 로그인에 실패하였습니다.', userInfo: user.dataValues })
+                res.status(400).json({ message: '로그인 정보의 유효성 문제로 로그인에 실패하였습니다.' })
             } 
 
         } else {
