@@ -21,7 +21,8 @@ module.exports = {
                 where: {
                     email: email,
                     password: password,
-                }
+                },
+                attributes: ['id', 'nickname', 'email', 'role']
             })
 
             if(user) {
@@ -37,7 +38,7 @@ module.exports = {
                 });
             } else {
                 //올바르지 않은 유저 정보
-                res.status(400).json({ message: '로그인 정보의 유효성 문제로 로그인에 실패하였습니다.' })
+                res.status(400).json({ message: '로그인 정보의 유효성 문제로 로그인에 실패하였습니다.', userInfo: user.dataValues })
             } 
 
         } else {
