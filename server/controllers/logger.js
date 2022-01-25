@@ -1,11 +1,13 @@
 const fs = require('fs');
+const path = require('path')
 
 
 module.exports = function log(io) {
     io.on("connection", (socket) => {
 
         socket.on("server_log", () => {
-          fs.readFile('../logs/access.log', function(err, data) {
+          console.log("서버로그")
+          fs.readFile(path.join(__dirname, '../logs/access.log'), function(err, data) {
             if(err) throw err;
             const array = data.toString().split("\n");
             for(i in array) {
@@ -14,7 +16,7 @@ module.exports = function log(io) {
             }
           });
         })
-
+        
         socket.on("pm2_log_general", () => {
           fs.readFile('/root/.pm2/logs/app-out.log', function(err, data) {
             if(err) throw err;
