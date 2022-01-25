@@ -21,6 +21,16 @@ const app = express()
 const accessLogStream = fs.createWriteStream(path.join(__dirname, '/logs/access.log'), { flags: 'a' })
 const serverlog = morgan('combined', { stream: accessLogStream });
 
+// 로그 파일 폴더가 없을 경우 생성
+const mklogdir = (dir) => {
+  if(!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+  }
+}
+
+mklogdir('logs')
+
+
 app.use(serverlog);
 
 let corsOptions = {
