@@ -53,7 +53,7 @@ module.exports = {
       let totalChatIdList = [...chatIdListRelatedmyPost, ...mychatIdList];
       let setTotalChatIdList = new Set(totalChatIdList);
       let uniqueTotalChatIdList = [...setTotalChatIdList];
-
+      console.log(uniqueTotalChatIdList)
 
       if (uniqueTotalChatIdList[0] === undefined) {
 
@@ -66,9 +66,11 @@ module.exports = {
 
         myNickname = myNickname.dataValues.nickname
         let chatListInfo = []
+
         res.status(200).send({data: {chatListInfo, myNickname}, message: "empty chat list"});
         
       } else {
+
         //전체 체팅과 연관된 포스트 목록을 구한다
         let postIdList = await models.post_has_chat.findAll({
           where: {
@@ -82,37 +84,38 @@ module.exports = {
         });
         let setPostIdList = new Set(postIdList);
         let uniquePostIdList = [...setPostIdList];
-
-        //전체 체팅과 연관된 유저 목록을 구한다
-        let userIdList = await models.chat.findAll({
-          attributes: ["user_id"],
-          where: {
-            id: {
-              [Op.or]: uniqueTotalChatIdList,
-            }
-          }
-        })
-        userIdList = userIdList.map(function(elem) {
-          return elem.dataValues.user_id;
-        })
-        let setUserIdList = new Set(userIdList);
-        let uniqueUserIdList = [...setUserIdList]
+        // console.log(uniquePostIdList);
+        
+        // 전체 체팅과 연관된 유저 목록을 구한다
+        // let userIdList = await models.chat.findAll({
+        //   attributes: ["user_id"],
+        //   where: {
+        //     id: {
+        //       [Op.or]: uniqueTotalChatIdList,
+        //     }
+        //   }
+        // })
+        // userIdList = userIdList.map(function(elem) {
+        //   return elem.dataValues.user_id;
+        // })
+        // let setUserIdList = new Set(userIdList);
+        // let uniqueUserIdList = [...setUserIdList]
         // console.log(uniqueUserIdList)
         
-        //나와 연관된 채팅을 쓴 채팅 리스트 를 구한다.
-        let chatListInfoRaw =  await models.chat.findAll({
+        //나와 연관된 채팅을 쓴 채팅 리스트 를 구한다( uniquePostIdList 로부터).
+        let chatListInfoRaw =  await models.post.findAll({
           include: [
-            {model: models.post, as: "post_id_post_post_has_chats",
-              include: [{ model: models.user, as: "user", attributes: ["nickname"] }]
-            }
+            { model: models.user, as: "user", attributes: ["nickname"] },
+            { model: models.chat, as: "chat_id_chats", attributes: ["room"]}
           ],
           where: {
-            user_id: { 
-              [Op.or]: uniqueUserIdList
+            id: { 
+              [Op.or]: uniquePostIdList
             },
           },
         })
         // console.log(chatListInfoRaw[0])
+
         let chatListInfoOutput = [];
         let chatListInfoOutputChecker = [];
         // console.log(chatListInfoOutput.includes(chatListInfoRaw[0].dataValues.user_id === true))

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "start": "cross-env NODE_ENV=development nodemon app.js",
     "server-start": "authbind --deep pm2 start app.js",
     "postinstall": "patch-package"
