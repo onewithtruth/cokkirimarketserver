@@ -1,11 +1,9 @@
 const models = require("../models");
 const { Op } = require("sequelize");
-const post = require("../models/post");
-const post_has_chat = require("../models/post_has_chat");
 
 module.exports = {
   chatroomlist: async (req, res) => {
-    // console.log(Number(req.body.payload.user_id))
+    // console.log(req.body)
     if (req.body.payload.user_id) {
       
       //나의 아이디
@@ -65,9 +63,9 @@ module.exports = {
         });
 
         myNickname = myNickname.dataValues.nickname
-        let chatListInfo = []
+        let chatListInfoOutput = []
 
-        res.status(200).send({data: {chatListInfo, myNickname}, message: "empty chat list"});
+        res.status(200).send({data: {chatListInfoOutput, myNickname}, message: "empty chat list"});
         
       } else {
 
@@ -151,8 +149,9 @@ module.exports = {
   },
 
   chatroom: async (req, res) => {
-    console.log(req.body.payload)
-    if (req.body.payload.room) {
+    console.log(req.body.payload.seller_id)
+
+    if (req.body.payload.seller_id) {
       
       function getPostid(room) {
         let sharpIndex = room.indexOf("#");
