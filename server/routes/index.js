@@ -45,6 +45,10 @@ router.get('/public/*', async (req, res) => {
 router.use(express.static(path.join(__dirname, "../build")));
 
 
+router.get('/log', (req, res) => {
+  res.redirect('https://api.cokkirimarket.xyz/log/index.html')
+})
+
 router.get('/log/*', async (req, res) => {
   fs.access(path.join(__dirname, '../', req.path), fs.constants.R_OK, (err) => {
     if (err) {
