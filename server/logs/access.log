@@ -393,3 +393,5 @@
 ::ffff:127.0.0.1 - - [26/Jan/2022:00:59:45 +0000] "GET /apidocs/swagger-ui.css HTTP/1.1" 200 143871 "http://localhost/apidocs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0"
 ::ffff:127.0.0.1 - - [26/Jan/2022:00:59:45 +0000] "GET /apidocs/favicon-32x32.png HTTP/1.1" - - "http://localhost/apidocs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0"
 ::ffff:127.0.0.1 - - [26/Jan/2022:01:03:21 +0000] "GET /log HTTP/1.1" 302 132 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0"
+::ffff:127.0.0.1 - - [26/Jan/2022:04:32:50 +0000] "GET / HTTP/1.1" 200 19 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 Edg/97.0.1072.69"
+::ffff:127.0.0.1 - - [26/Jan/2022:04:32:54 +0000] "GET /cokk HTTP/1.1" 302 134 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 Edg/97.0.1072.69"
