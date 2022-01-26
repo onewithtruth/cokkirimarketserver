@@ -9,6 +9,10 @@
 /coverage
 
 #cert
+cert.pem
+key.pem
+cokkirimarket.crt.pem
+cokkirimarket.key.pem
 
 # production
 /build
