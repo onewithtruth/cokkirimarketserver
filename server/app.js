@@ -8,6 +8,7 @@ const https = require('https');
 const cookieParser = require("cookie-parser")
 const indexRouter = require('./routes/');
 const socket = require('./controllers/socket');
+const helmet = require('helmet')
 
 
 
@@ -16,9 +17,28 @@ const morgan = require('morgan')
 const log = require('./controllers/logger.js')
 const path = require('path')
 
-
+//express 자체를 app으로 취급
 const app = express()
-// 위와 같이 express와 app을 변수로 사용한다.
+
+
+// express의 기본 보안을 위해 헬멧 사용
+const cspOptions = {
+  directives: {
+    // 기본 옵션 설정
+    ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+    
+    // 폰트 관련 설정
+    "font-src": ["'self'", "cdn.jsdelivr.net", "'unsafe-inline'"],
+
+    // 이미지, css 등
+    "img-src": ["'self'", "data:", "imagedelivery.net"],
+    "style-src": ["'self'", "cdn.rawgit.com", "spoqa.github.io", 'cdn.jsdelivr.net'],
+  }
+}
+
+app.use(helmet({
+  contentSecurityPolicy: cspOptions,
+}));
 
 
 //1212
