@@ -104,9 +104,9 @@ module.exports = {
         let chatListInfoRaw =  await models.chat.findAll({
           include: [
             { model: models.user, as: "user", attributes: ["nickname"] },
-            { model: models.post, as: "post_id_post_post_has_chats",
-              include: [{ model: models.user, as: "user", attributes: ["nickname"] }]
-            }
+            { model: models.post, as: "post_id_post_post_has_chats", 
+              include: [{ model: models.user, as: "user", attributes: ["nickname"] }],
+            attributes: ["title", "image_src", "user_id"] }
           ],
           where: {
             "room": { 
@@ -125,7 +125,7 @@ module.exports = {
             chatListInfoOutput.push(chatListInfoRaw[i]);
           }
         }
-        // console.log(chatListInfoOutput.length)
+        console.log(chatListInfoOutput.length)
 
         let myNickname = await models.user.findOne({
           attributes: ["nickname"],
@@ -151,7 +151,7 @@ module.exports = {
   },
 
   chatroom: async (req, res) => {
-    console.log(req.body.payload.seller_id)
+    // console.log(Number(req.body.payload.seller_id))
 
     if (req.body.payload.seller_id) {
       
@@ -175,8 +175,9 @@ module.exports = {
       });
 
       buyerId = Number(buyerId.dataValues.id);
-      
+      console.log(buyerId)
       let sellerId = Number(req.body.payload.seller_id);
+      console.log(sellerId)
       
       
       
