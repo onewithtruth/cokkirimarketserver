@@ -8,6 +8,7 @@ const https = require('https');
 const cookieParser = require("cookie-parser")
 const indexRouter = require('./routes/');
 const socket = require('./controllers/socket');
+const helmet = require('helmet')
 
 
 
@@ -16,9 +17,29 @@ const morgan = require('morgan')
 const log = require('./controllers/logger.js')
 const path = require('path')
 
-
+//express 자체를 app으로 취급
 const app = express()
-// 위와 같이 express와 app을 변수로 사용한다.
+
+
+// express의 기본 보안을 위해 헬멧 사용
+const cspOptions = {
+  directives: {
+    // 기본 옵션 설정
+    ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+    
+    // 폰트 관련 설정
+    "font-src": ["'self'", "cdn.jsdelivr.net", "'unsafe-inline'"],
+
+    // 사용되는 리소스들에 대한 화이트리스트 설정
+    "img-src": ["'self'", "data:", "imagedelivery.net"],
+    "style-src": ["'self'", "'unsafe-inline'", "cdn.rawgit.com", "spoqa.github.io", 'cdn.jsdelivr.net'],
+  }
+}
+// cors 리소스 정책만 크로스 오리진으로
+app.use(helmet({
+  contentSecurityPolicy: cspOptions,
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+}));
 
 
 //1212
