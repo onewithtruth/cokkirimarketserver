@@ -51,7 +51,7 @@ module.exports = {
       let totalChatIdList = [...chatIdListRelatedmyPost, ...mychatIdList];
       let setTotalChatIdList = new Set(totalChatIdList);
       let uniqueTotalChatIdList = [...setTotalChatIdList];
-      console.log(uniqueTotalChatIdList)
+      // console.log(uniqueTotalChatIdList)
 
       if (uniqueTotalChatIdList[0] === undefined) {
 
@@ -70,56 +70,58 @@ module.exports = {
       } else {
 
         //전체 체팅과 연관된 포스트 목록을 구한다
-        let postIdList = await models.post_has_chat.findAll({
-          where: {
-            chat_id: {
-              [Op.or]: uniqueTotalChatIdList,
-            },
-          },
-        });
-        postIdList = postIdList.map(function(elem) {
-          return elem.dataValues.post_id;
-        });
-        let setPostIdList = new Set(postIdList);
-        let uniquePostIdList = [...setPostIdList];
+        // let postIdList = await models.post_has_chat.findAll({
+        //   where: {
+        //     chat_id: {
+        //       [Op.or]: uniqueTotalChatIdList,
+        //     },
+        //   },
+        // });
+        // postIdList = postIdList.map(function(elem) {
+        //   return elem.dataValues.post_id;
+        // });
+        // let setPostIdList = new Set(postIdList);
+        // let uniquePostIdList = [...setPostIdList];
         // console.log(uniquePostIdList);
         
-        // 전체 체팅과 연관된 유저 목록을 구한다
-        // let userIdList = await models.chat.findAll({
-        //   attributes: ["user_id"],
-        //   where: {
-        //     id: {
-        //       [Op.or]: uniqueTotalChatIdList,
-        //     }
-        //   }
-        // })
-        // userIdList = userIdList.map(function(elem) {
-        //   return elem.dataValues.user_id;
-        // })
-        // let setUserIdList = new Set(userIdList);
-        // let uniqueUserIdList = [...setUserIdList]
-        // console.log(uniqueUserIdList)
+        // 전체 체팅과 연관된 room 목록을 구한다
+        let chatRoomList = await models.chat.findAll({
+          attributes: ["room"],
+          where: {
+            id: {
+              [Op.or]: uniqueTotalChatIdList,
+            }
+          }
+        })
+        chatRoomList = chatRoomList.map(function(elem) {
+          return elem.dataValues.room;
+        })
+        let setUserIdList = new Set(chatRoomList);
+        let uniquechatRoomList = [...setUserIdList]
+        // console.log(uniquechatRoomList)
         
         //나와 연관된 채팅을 쓴 채팅 리스트 를 구한다( uniquePostIdList 로부터).
-        let chatListInfoRaw =  await models.post.findAll({
+        let chatListInfoRaw =  await models.chat.findAll({
           include: [
             { model: models.user, as: "user", attributes: ["nickname"] },
-            { model: models.chat, as: "chat_id_chats", attributes: ["room"]}
+            { model: models.post, as: "post_id_post_post_has_chats",
+              include: [{ model: models.user, as: "user", attributes: ["nickname"] }]
+            }
           ],
           where: {
-            id: { 
-              [Op.or]: uniquePostIdList
+            "room": { 
+              [Op.or]: uniquechatRoomList
             },
           },
         })
-        // console.log(chatListInfoRaw[0])
+        // console.log(chatListInfoRaw.length)
 
         let chatListInfoOutput = [];
         let chatListInfoOutputChecker = [];
-        // console.log(chatListInfoOutput.includes(chatListInfoRaw[0].dataValues.user_id === true))
+        // console.log(chatListInfoOutput.includes(chatListInfoRaw[0].dataValues.room === true))
         for (let i = 0; i < chatListInfoRaw.length; i++) {
-          if (!chatListInfoOutputChecker.includes(chatListInfoRaw[i].dataValues.user_id)) {
-            chatListInfoOutputChecker.push(chatListInfoRaw[i].dataValues.user_id);
+          if (!chatListInfoOutputChecker.includes(chatListInfoRaw[i].dataValues.room)) {
+            chatListInfoOutputChecker.push(chatListInfoRaw[i].dataValues.room);
             chatListInfoOutput.push(chatListInfoRaw[i]);
           }
         }
