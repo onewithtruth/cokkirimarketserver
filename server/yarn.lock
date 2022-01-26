@@ -1299,6 +1299,16 @@
   "resolved" "https://registry.npmjs.org/eventemitter2/-/eventemitter2-5.0.1.tgz"
   "version" "5.0.1"
 
+"express-ipfilter@^1.2.0":
+  "integrity" "sha512-nPXKMuhqVjX7+Vny4XsrpdqlX4YAGcanE0gh5xzpfmNTsINGAgPnpk67kb0No3p1m4vGQQLU6hdaXRxsuGNlTA=="
+  "resolved" "https://registry.npmjs.org/express-ipfilter/-/express-ipfilter-1.2.0.tgz"
+  "version" "1.2.0"
+  dependencies:
+    "ip" "~1.1.0"
+    "lodash" "^4.17.11"
+    "proxy-addr" "^2.0.4"
+    "range_check" "^1.2.0"
+
 "express@^4.17.2", "express@>=4.0.0":
   "integrity" "sha512-oxlxJxcQlYwqPWKVJJtvQiwHgosH/LrLSPA+H4UxpyvSS6jC5aH+5MoHFM+KABgTOt0APue4w66Ha8jCUo9QGg=="
   "resolved" "https://registry.npmjs.org/express/-/express-4.17.2.tgz"
@@ -1946,10 +1956,20 @@
     "validate-npm-package-license" "^3.0.1"
     "validate-npm-package-name" "^2.0.1"
 
-"ip@^1.1.5":
+"ip@^1.1.5", "ip@~1.1.0":
   "integrity" "sha1-vd7XARQpCCjAoDnnLvJfWq7ENUo="
   "resolved" "https://registry.npmjs.org/ip/-/ip-1.1.5.tgz"
   "version" "1.1.5"
+
+"ip6@0.0.4":
+  "integrity" "sha1-RMWp23njnUBSAbTXjROzhw5I2zE="
+  "resolved" "https://registry.npmjs.org/ip6/-/ip6-0.0.4.tgz"
+  "version" "0.0.4"
+
+"ipaddr.js@1.2":
+  "integrity" "sha1-irpJyRknmVhb3WQ+DMtQ6K53e6Q="
+  "resolved" "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.2.0.tgz"
+  "version" "1.2.0"
 
 "ipaddr.js@1.9.1":
   "integrity" "sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g=="
@@ -2349,7 +2369,7 @@
 "lodash.tostring@^4.0.0":
   "version" "4.1.4"
 
-"lodash@^4.17.14", "lodash@^4.17.21":
+"lodash@^4.17.11", "lodash@^4.17.14", "lodash@^4.17.21":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -3214,7 +3234,7 @@
   "resolved" "https://registry.npmjs.org/proto-list/-/proto-list-1.2.4.tgz"
   "version" "1.2.4"
 
-"proxy-addr@~2.0.7":
+"proxy-addr@^2.0.4", "proxy-addr@~2.0.7":
   "integrity" "sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg=="
   "resolved" "https://registry.npmjs.org/proxy-addr/-/proxy-addr-2.0.7.tgz"
   "version" "2.0.7"
@@ -3291,12 +3311,6 @@
   "resolved" "https://registry.npmjs.org/qs/-/qs-6.9.6.tgz"
   "version" "6.9.6"
 
-"randombytes@^2.1.0":
-  "integrity" "sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ=="
-  "resolved" "https://registry.npmjs.org/randombytes/-/randombytes-2.1.0.tgz"
-  "version" "2.1.0"
-  dependencies:
-    "safe-buffer" "^5.1.0"
 
 "range-parser@~1.2.1":
   "integrity" "sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg=="
