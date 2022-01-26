@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/cokk/static/css/main.9648310b.css",
-    "main.js": "/cokk/static/js/main.0d36f5da.js",
+    "main.js": "/cokk/static/js/main.92305506.js",
     "static/js/787.01e47129.chunk.js": "/cokk/static/js/787.01e47129.chunk.js",
     "static/media/NanumSquareRoundB.eot": "/cokk/static/media/NanumSquareRoundB.00053e49336a463b03c4.eot",
     "static/media/NanumSquareRoundR.eot": "/cokk/static/media/NanumSquareRoundR.878736844c27f3c6fb08.eot",
@@ -22,11 +22,11 @@
     "static/media/logo.svg": "/cokk/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/cokk/index.html",
     "main.9648310b.css.map": "/cokk/static/css/main.9648310b.css.map",
-    "main.0d36f5da.js.map": "/cokk/static/js/main.0d36f5da.js.map",
+    "main.92305506.js.map": "/cokk/static/js/main.92305506.js.map",
     "787.01e47129.chunk.js.map": "/cokk/static/js/787.01e47129.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9648310b.css",
-    "static/js/main.0d36f5da.js"
+    "static/js/main.92305506.js"
   ]
 }
