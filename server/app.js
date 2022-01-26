@@ -32,7 +32,7 @@ const cspOptions = {
 
     // 이미지, css 등
     "img-src": ["'self'", "data:", "imagedelivery.net"],
-    "style-src": ["'self'", 'unsafe-inline', "cdn.rawgit.com", "spoqa.github.io", 'cdn.jsdelivr.net'],
+    "style-src": ["'self'", "'unsafe-inline'", "cdn.rawgit.com", "spoqa.github.io", 'cdn.jsdelivr.net'],
   }
 }
 
