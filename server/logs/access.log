@@ -654,3 +654,5 @@
 ::1 - - [26/Jan/2022:07:09:53 +0000] "POST /socket/chatroom HTTP/1.1" 200 1116 "https://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 Edg/97.0.1072.69"
 ::1 - - [26/Jan/2022:07:09:54 +0000] "POST /socket/chatroom HTTP/1.1" 200 1116 "https://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 Edg/97.0.1072.69"
 ::1 - - [26/Jan/2022:07:14:01 +0000] "POST /socket/chatroom HTTP/1.1" 200 1646 "-" "PostmanRuntime/7.29.0"
+::1 - - [26/Jan/2022:07:22:05 +0000] "OPTIONS /socket/chatroomlist HTTP/1.1" 204 0 "https://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 Edg/97.0.1072.69"
+::1 - - [26/Jan/2022:07:22:05 +0000] "POST /socket/chatroomlist HTTP/1.1" 200 3597 "https://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 Edg/97.0.1072.69"
