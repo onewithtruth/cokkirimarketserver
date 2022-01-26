@@ -38,7 +38,7 @@ const cspOptions = {
 
 app.use(helmet({
   contentSecurityPolicy: cspOptions,
-  crossOriginResourcePolicy: 'cross-origin',
+  crossOriginResourcePolicy: { policy: "cross-origin" },
 }));
 
 
