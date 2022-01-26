@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/log/static/css/main.073c9b0a.css",
-    "main.js": "/log/static/js/main.c47f6c3c.js",
-    "static/js/787.01e47129.chunk.js": "/log/static/js/787.01e47129.chunk.js",
-    "static/media/logo.svg": "/log/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/log/index.html",
-    "main.073c9b0a.css.map": "/log/static/css/main.073c9b0a.css.map",
-    "main.c47f6c3c.js.map": "/log/static/js/main.c47f6c3c.js.map",
-    "787.01e47129.chunk.js.map": "/log/static/js/787.01e47129.chunk.js.map"
+    "main.css": "/cokk/static/css/main.ead465e7.css",
+    "main.js": "/cokk/static/js/main.0d36f5da.js",
+    "static/js/787.01e47129.chunk.js": "/cokk/static/js/787.01e47129.chunk.js",
+    "static/media/logo.svg": "/cokk/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/cokk/index.html",
+    "main.ead465e7.css.map": "/cokk/static/css/main.ead465e7.css.map",
+    "main.0d36f5da.js.map": "/cokk/static/js/main.0d36f5da.js.map",
+    "787.01e47129.chunk.js.map": "/cokk/static/js/787.01e47129.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.c47f6c3c.js"
+    "static/css/main.ead465e7.css",
+    "static/js/main.0d36f5da.js"
   ]
 }

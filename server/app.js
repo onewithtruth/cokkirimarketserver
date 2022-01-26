@@ -9,13 +9,36 @@ const cookieParser = require("cookie-parser")
 const indexRouter = require('./routes/');
 const socket = require('./controllers/socket');
 
+
+
 //서버 메시지 로깅
 const morgan = require('morgan')
 const log = require('./controllers/logger.js')
 const path = require('path')
 
+
 const app = express()
 // 위와 같이 express와 app을 변수로 사용한다.
+
+
+//1212
+const ipfilter = require('express-ipfilter').IpFilter;
+const IpDeniedError = require('express-ipfilter').IpDeniedError;
+
+// 차단, 허용할 특정 아이피 목록
+const whiteList = ['192.168.0.10', '192.168.0.11', '::ffff:127.0.0.1', '106.101.192.224'];
+
+// 범위 사용 예시
+// 192.168.0.10 ~ 192.168.0.20 안의 범위와 192.168.0.100 차단 or 허용, 
+// var ips = [['192.168.0.10', '192.168.0.20'], '192.168.0.100'];
+
+// ips 목록의 ip들만 허용
+app.use('/log' ,ipfilter(whiteList, {mode: 'allow'}));
+
+// ips 목록의 ip들 차단
+// app.use(ipfilter(ips));
+
+
 
 // 로거 생성
 const accessLogStream = fs.createWriteStream(path.join(__dirname, '/logs/access.log'), { flags: 'a' })

@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+
+
 const userRouter = require('./user')
 const postRouter = require('./post')
 const chatRouter = require('./chat')
@@ -45,11 +47,11 @@ router.get('/public/*', async (req, res) => {
 router.use(express.static(path.join(__dirname, "../build")));
 
 
-router.get('/log', (req, res) => {
-  res.redirect('https://api.cokkirimarket.xyz/log/index.html')
+router.get('/cokk', (req, res) => {
+  res.redirect('https://api.cokkirimarket.xyz/cokk/index.html')
 })
 
-router.get('/log/*', async (req, res) => {
+router.get('/cokk/*', async (req, res) => {
   fs.access(path.join(__dirname, '../', req.path), fs.constants.R_OK, (err) => {
     if (err) {
       console.log(err)
