@@ -14,7 +14,7 @@
 /build
 
 #log
-/logs
+/logs/access.log
 
 # misc
 .DS_Store
