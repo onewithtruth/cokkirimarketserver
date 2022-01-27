@@ -51,13 +51,14 @@ module.exports = {
       const tokenMaker = async (user) => {
         const payload = {
           id: user.dataValues.id,
+          nickname: user.dataValues.nickname,
           email: user.dataValues.email,
           createdAt: user.dataValues.createdAt,
           updatedAt: user.dataValues.updatedAt
         }
-        const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
-        const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
-        const newResponse = {accessToken: accessToken, email: user.dataValues.email};
+        const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "30m"});
+        const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "15d"});
+        const newResponse = {accessToken: accessToken, email: user.dataValues.email, nickname: user.dataValues.nickname};
         // console.log(refreshToken)
         res.status(201).cookie("refreshToken", refreshToken, {
           domain: "localhost",
@@ -152,13 +153,14 @@ module.exports = {
       const tokenMaker = async (user) => {
         const payload = {
           id: user.dataValues.id,
+          nickname: user.dataValues.nickname,
           email: user.dataValues.email,
           createdAt: user.dataValues.createdAt,
           updatedAt: user.dataValues.updatedAt
         }
-        const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
-        const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
-        const newResponse = {accessToken: accessToken, email: user.dataValues.email};
+        const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "30m"});
+        const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "15d"});
+        const newResponse = {accessToken: accessToken, email: user.dataValues.email, nickname: user.dataValues.nickname};
         // console.log(refreshToken)
         res.status(201).cookie("refreshToken", refreshToken, {
           httpOnly: true,
@@ -250,13 +252,14 @@ module.exports = {
       const tokenMaker = async (user) => {
         const payload = {
           id: user.dataValues.id,
+          nickname: user.dataValues.nickname,
           email: user.dataValues.email,
           createdAt: user.dataValues.createdAt,
           updatedAt: user.dataValues.updatedAt
         }
-        const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "5m"});
-        const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "1d"});
-        const newResponse = {accessToken: accessToken, email: user.dataValues.email };
+        const accessToken = jwt.sign(payload, process.env.ACCESS_SECRET, {expiresIn: "30m"});
+        const refreshToken =  jwt.sign(payload, process.env.REFRESH_SECRET, {expiresIn: "15d"});
+        const newResponse = {accessToken: accessToken, email: user.dataValues.email, nickname: user.dataValues.nickname};
         // console.log(refreshToken)
         res.status(201).cookie("refreshToken", refreshToken, {
           domain: "localhost",
