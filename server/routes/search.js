@@ -9,6 +9,38 @@ const searchController = require('../controllers/search');
  * 
  * /search:
  *   get:
+ *     description: Database 포스트의 카테고리 리스트를 불러옵니다.
+ *     tags: [search]
+ *     produces:
+ *     - "application/json"
+ *     responses:
+ *       "201":
+ *         description: "ok"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     example: <Category List EXAMPLE>
+ *                 message:
+ *                   type: string
+ *                   example: "ok"    
+ *
+ *       "500":
+ *           description: "잘못된 요청입니다."
+ *           content:
+ *               application/json:
+ *                   schema:
+ *                       type: object
+ *                       properties:
+ *                           message:
+ *                               type: string
+ *                               example: "잘못된 요청입니다."
+ * /search:
+ *   post:
  *     description: Database 상의 포스트 중에 요청 내용과 일치하는 포스트의 목록을 가져옵니다.
  *     tags: [search]
  *     produces:

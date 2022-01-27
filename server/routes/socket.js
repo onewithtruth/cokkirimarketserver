@@ -50,6 +50,9 @@ const controller = require('../controllers/socketController')
  *                     "mynickname":
  *                       type: "string"
  *                       example: "c2"
+ *                 message:
+ *                   type: string
+ *                   example: "ok"    
  *       "500":
  *           description: "잘못된 요청입니다."
  *           content:
@@ -88,7 +91,7 @@ const controller = require('../controllers/socketController')
  *                       example: "4#onewithtruth@gmail.com" 
  *                     "user_id":
  *                       type: "seller_id"
- *                       example: 2 
+ *                       example: 2
  *     responses:
  *       "201":
  *         description: "ok"
@@ -100,6 +103,9 @@ const controller = require('../controllers/socketController')
  *                 data:
  *                   type: object
  *                   example: <ChatLogList DATA EXAMPLE>
+ *                 message:
+ *                   type: string
+ *                   example: "ok"    
  *       "500":
  *           description: "잘못된 요청입니다."
  *           content:
