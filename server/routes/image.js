@@ -16,7 +16,7 @@ const controller = require('../controllers/image')
  *     - "application/json"
  *     responses:
  *       "201":
- *         description: "성공적으로 로그인 되었습니다."
+ *         description: "ok"
  *         content:
  *           application/json:
  *             schema:
