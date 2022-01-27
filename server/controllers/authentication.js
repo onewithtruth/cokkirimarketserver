@@ -15,18 +15,23 @@ module.exports = {
         const userInfoFromAccessToken = await isAuthorized(req) // 엑세스 토큰에서 복호화한 유저정보
         const userInfoFromRefreshToken = await checkRefeshToken(req) //리프레시 토큰에서 복호화한 유저정보
 
-        console.log('userInfoFromAccessToken 는 ', userInfoFromAccessToken) //개발용
-        console.log('userInfoFromRefreshToken 는', userInfoFromRefreshToken) //개발용
+        //console.log('userInfoFromAccessToken 는 ', userInfoFromAccessToken) //개발용
+        //console.log('userInfoFromRefreshToken 는', userInfoFromRefreshToken) //개발용
 
         delete userInfoFromAccessToken.createdAt
         delete userInfoFromAccessToken.updatedAt
         delete userInfoFromAccessToken.iat
         delete userInfoFromAccessToken.exp
+        if(userInfoFromRefreshToken){
+            delete userInfoFromRefreshToken.createdAt
+            delete userInfoFromRefreshToken.updatedAt
+            delete userInfoFromRefreshToken.iat
+            delete userInfoFromRefreshToken.exp
+            console.log(`인증 요청 발생, ID: ${userInfoFromAccessToken.id} email : ${userInfoFromAccessToken.email}, 리프레시 토큰 O`)
+        } else {
+            console.log(`인증 요청 발생, ID: ${userInfoFromAccessToken.id} email : ${userInfoFromAccessToken.email}, 리프레시 토큰 X`)
+        }
 
-        delete userInfoFromRefreshToken.createdAt
-        delete userInfoFromRefreshToken.updatedAt
-        delete userInfoFromRefreshToken.iat
-        delete userInfoFromRefreshToken.exp
 
         if(userInfoFromAccessToken){  
             //일단 엑세스 토큰이 유효하면 인증 완료
