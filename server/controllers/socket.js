@@ -14,7 +14,9 @@ module.exports = (io) => {
 
     socket.on("send_message", async (data) => {
       // console.log(data)
-      socket.to(data.room).emit("receive_message", data);
+      if (data.room && data.author) {
+        socket.to(data.room).emit("receive_message", data);
+      }
 
       let textAuthorId = await models.user.findOne({
         attributes: ["id"],
