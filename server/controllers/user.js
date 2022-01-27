@@ -31,6 +31,13 @@ module.exports = {
                 
                 const accessToken = generateAccessToken(user.dataValues)
                 const refreshToken = generateRefreshToken(user.dataValues)
+
+                //리프레시 토큰 DB기록
+                const StoredRefreshToken = await models.refreshtoken.create({
+                    refreshtoken: refreshToken,
+                    user_id: user.id
+                })
+
                 sendRefreshToken(res, refreshToken)
                 res.json({ 
                     accessToken: accessToken,
@@ -107,6 +114,39 @@ module.exports = {
         } else {
             res.status(400).send({ message: '잘못된 요청입니다.' })
         }
+    },
+
+    authorization: async (req, res) => {
+        const userInfoFromRefreshToken = await checkRefeshToken(req)
+
+        if(!userInfoFromRefreshToken){
+            return res.status(500).json({ message: '리프레시 토큰 없음' })
+        } else {
+            const user = await models.user.findOne({
+                where: {
+                    email: email,
+                    password: password,
+                },
+                attributes: ['id', 'nickname', 'email', 'role']
+            })
+
+            if(user) {
+                //로그인성공
+                delete user.dataValues.password
+                
+                const accessToken = generateAccessToken(user.dataValues)
+                const refreshToken = generateRefreshToken(user.dataValues)
+                sendRefreshToken(res, refreshToken)
+
+                res.json({ 
+                    accessToken: accessToken,
+                    message: "로그인 성공",
+                    userInfo: user.dataValues 
+                });
+            }
+
+        }
+
     },
 
     delete: async (req, res) => {

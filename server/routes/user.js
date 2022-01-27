@@ -360,6 +360,7 @@ router.post('/login', controller.login);
 router.get('/verification', controller.verification);
 router.post('/signup', controller.signup)
 router.get('/isduplicated', controller.isduplicated)
+router.get('/authorization', controller.authorization)
 
 
 
