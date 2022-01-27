@@ -46,7 +46,7 @@ module.exports = {
         order: [ [ 'createdAt', 'DESC' ]]
       })
 
-      if(refreshToken === refreshTokenFromDB){
+      if(refreshToken === refreshTokenFromDB.refreshtoken){
         return userInfo
       } else {
         return null
