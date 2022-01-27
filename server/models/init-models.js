@@ -1,22 +1,18 @@
 var DataTypes = require("sequelize").DataTypes;
 var _categories = require("./categories");
 var _chat = require("./chat");
-var _hashtags = require("./hashtags");
 var _post = require("./post");
 var _post_has_categories = require("./post_has_categories");
 var _post_has_chat = require("./post_has_chat");
-var _post_has_hashtags = require("./post_has_hashtags");
 var _refreshtoken = require("./refreshtoken");
 var _user = require("./user");
 
 function initModels(sequelize) {
   var categories = _categories(sequelize, DataTypes);
   var chat = _chat(sequelize, DataTypes);
-  var hashtags = _hashtags(sequelize, DataTypes);
   var post = _post(sequelize, DataTypes);
   var post_has_categories = _post_has_categories(sequelize, DataTypes);
   var post_has_chat = _post_has_chat(sequelize, DataTypes);
-  var post_has_hashtags = _post_has_hashtags(sequelize, DataTypes);
   var refreshtoken = _refreshtoken(sequelize, DataTypes);
   var user = _user(sequelize, DataTypes);
 
@@ -32,8 +28,6 @@ function initModels(sequelize) {
   post.hasMany(post_has_categories, { as: "post_has_categories", foreignKey: "post_id"});
   post_has_chat.belongsTo(post, { as: "post", foreignKey: "post_id"});
   post.hasMany(post_has_chat, { as: "post_has_chats", foreignKey: "post_id"});
-  post_has_hashtags.belongsTo(post, { as: "post", foreignKey: "post_id"});
-  post.hasMany(post_has_hashtags, { as: "post_has_hashtags", foreignKey: "post_id"});
   chat.belongsTo(user, { as: "user", foreignKey: "user_id"});
   user.hasMany(chat, { as: "chats", foreignKey: "user_id"});
   post.belongsTo(user, { as: "user", foreignKey: "user_id"});
@@ -44,11 +38,9 @@ function initModels(sequelize) {
   return {
     categories,
     chat,
-    hashtags,
     post,
     post_has_categories,
     post_has_chat,
-    post_has_hashtags,
     refreshtoken,
     user,
   };
