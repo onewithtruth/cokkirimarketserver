@@ -63,7 +63,7 @@ const controller = require('../controllers/socketController')
  * /socket/chatroom:
  *   post:
  *     description: DB에 자신의 Room의 대화로그 리스트를 요청해 받습니다.
- *     tags: [OAuth2.0]
+ *     tags: [socket.io chat]
  *     produces:
  *     - "application/json"
  *     parameters:
