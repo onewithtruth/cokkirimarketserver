@@ -9,9 +9,15 @@ const {
 
 module.exports = {
     logout: (req, res) => {
-        res.clearCookie('refreshToken')
+        if(checkRefeshToken(req)){
+            res.clearCookie('refreshToken')
+            res.status(200).json({message: '로그아웃 요청이 성공적으로 완료되었습니다.'})
+        } else {
+            res.status(500).json({message: '기타 오류'})
+        }
+        
         //db에서 말소시키는 과정이 들어가야 하는 자리
-        res.status(200).send('로그아웃 요청이 성공적으로 완료되었습니다.')
+        
     },
     
     login: async (req, res) => {
@@ -155,6 +161,8 @@ module.exports = {
         if(!userInfoFromRefreshToken){
             return res.status(500).json({ message: '리프레시 토큰 없음' })
         }
+
+
         //console.log('회원 탈퇴 요청, 각 토큰에서 해석한 유저 email은 각각 다음과 같습니다.', req.userInfo.id, userInfoFromRefreshToken.id)
         console.log('쿠키는', req.cookies)
         const keysArr = Object.keys(userInfoFromRefreshToken)
