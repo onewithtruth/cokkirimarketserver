@@ -1,4 +1,5 @@
 require("dotenv").config();
+const models = require("../models");
 const { sign, verify } = require("jsonwebtoken");
 
 module.exports = {
@@ -36,9 +37,25 @@ module.exports = {
   checkRefeshToken: async (req) => {
     const refreshToken = req.cookies.refreshToken
     try {
-      return verify(refreshToken, process.env.REFRESH_SECRET);
+      userInfo = await verify(refreshToken, process.env.REFRESH_SECRET);
+
+      const refreshTokenFromDB = await models.refreshtoken.findOne({
+        where: {
+            user_id: userInfo.id
+        },
+        order: [ [ 'createdAt', 'DESC' ]]
+      })
+
+      if(refreshToken === refreshTokenFromDB.refreshtoken){
+        return userInfo
+      } else {
+        return null
+      }
+
     } catch (err) {
       return null;
     }
+
+
   },
 };
