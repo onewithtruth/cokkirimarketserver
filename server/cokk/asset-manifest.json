@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/cokk/static/css/main.9648310b.css",
+    "main.js": "/cokk/static/js/main.1ae22fe4.js",
+    "static/js/787.01e47129.chunk.js": "/cokk/static/js/787.01e47129.chunk.js",
+    "static/media/NanumSquareRoundB.eot": "/cokk/static/media/NanumSquareRoundB.00053e49336a463b03c4.eot",
+    "static/media/NanumSquareRoundR.eot": "/cokk/static/media/NanumSquareRoundR.878736844c27f3c6fb08.eot",
+    "static/media/NanumSquareRoundEB.eot": "/cokk/static/media/NanumSquareRoundEB.5f0c29d7aff220ca2b0c.eot",
+    "static/media/NanumSquareRoundL.eot": "/cokk/static/media/NanumSquareRoundL.e19ef531d7c32558789f.eot",
+    "static/media/NanumSquareRoundR.ttf": "/cokk/static/media/NanumSquareRoundR.f062cb52be3e9829834c.ttf",
+    "static/media/NanumSquareRoundB.ttf": "/cokk/static/media/NanumSquareRoundB.8ab117fc37409bd022e5.ttf",
+    "static/media/NanumSquareRoundEB.ttf": "/cokk/static/media/NanumSquareRoundEB.ef4043133d5b2d0febb4.ttf",
+    "static/media/NanumSquareRoundL.ttf": "/cokk/static/media/NanumSquareRoundL.34b53f3711c695552994.ttf",
+    "static/media/NanumSquareRoundR.woff": "/cokk/static/media/NanumSquareRoundR.a333abd9dbdde59720d2.woff",
+    "static/media/NanumSquareRoundB.woff": "/cokk/static/media/NanumSquareRoundB.4781df394beecef83161.woff",
+    "static/media/NanumSquareRoundEB.woff": "/cokk/static/media/NanumSquareRoundEB.62dbf448ca68f507a41d.woff",
+    "static/media/NanumSquareRoundL.woff": "/cokk/static/media/NanumSquareRoundL.f08224d8c6127b453307.woff",
+    "static/media/NanumSquareRoundR.woff2": "/cokk/static/media/NanumSquareRoundR.ca200c8509255deb08ea.woff2",
+    "static/media/NanumSquareRoundB.woff2": "/cokk/static/media/NanumSquareRoundB.b41913663ff3ff4ad27b.woff2",
+    "static/media/NanumSquareRoundEB.woff2": "/cokk/static/media/NanumSquareRoundEB.db7992c49ac3eaa4f728.woff2",
+    "static/media/NanumSquareRoundL.woff2": "/cokk/static/media/NanumSquareRoundL.4aa4e57c760130b586c8.woff2",
+    "static/media/logo.svg": "/cokk/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/cokk/index.html",
+    "main.9648310b.css.map": "/cokk/static/css/main.9648310b.css.map",
+    "main.1ae22fe4.js.map": "/cokk/static/js/main.1ae22fe4.js.map",
+    "787.01e47129.chunk.js.map": "/cokk/static/js/787.01e47129.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9648310b.css",
+    "static/js/main.1ae22fe4.js"
+  ]
+}
