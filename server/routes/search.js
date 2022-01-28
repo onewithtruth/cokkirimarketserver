@@ -39,7 +39,6 @@ const searchController = require('../controllers/search');
  *                           message:
  *                               type: string
  *                               example: "잘못된 요청입니다."
- * /search:
  *   post:
  *     description: Database 상의 포스트 중에 요청 내용과 일치하는 포스트의 목록을 가져옵니다.
  *     tags: [search]
